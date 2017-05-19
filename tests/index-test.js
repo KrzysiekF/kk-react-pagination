@@ -2,6 +2,7 @@ import expect from 'expect'
 import React from 'react'
 import {render, unmountComponentAtNode} from 'react-dom'
 import { createStore, applyMiddleware } from 'redux';
+import reducers from 'src/reducers';
 
 import Component from 'src/'
 
