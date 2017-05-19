@@ -2,7 +2,14 @@
   "name": "kk-react-pagination",
   "version": "0.1.2",
   "description": "Pagination component for ReactJS",
-  "main": "index.js",
+  "author": "Krzysztof Furtak",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/KrzysiekF/kk-react-pagination/issues"
+  },
+  "homepage": "https://github.com/KrzysiekF/kk-react-pagination#readme",
+  "main": "lib/index.js",
+  "module": "es/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/KrzysiekF/kk-react-pagination.git"
@@ -13,29 +20,31 @@
     "pagination",
     "paginator"
   ],
-  "author": "Krzysztof Furtak",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/KrzysiekF/kk-react-pagination/issues"
+  "files": [
+    "css",
+    "es",
+    "lib",
+    "umd"
+  ],
+  "scripts": {
+    "build": "nwb build-react-component",
+    "clean": "nwb clean-module && nwb clean-demo",
+    "start": "nwb serve-react-demo",
+    "test": "nwb test-react",
+    "test:coverage": "nwb test-react --coverage",
+    "test:watch": "nwb test-react --server"
   },
-  "homepage": "https://github.com/KrzysiekF/kk-react-pagination#readme",
-  "dependencies": {
-    "react": "^15.5.4",
-    "react-dom": "^15.5.4",
-    "react-hot-loader": "^3.0.0-beta.7",
+  "dependencies": {},
+  "peerDependencies": {
+    "react": "15.x",
     "react-redux": "^5.0.5",
     "redux": "^3.6.0"
   },
   "devDependencies": {
-    "babel-core": "^6.24.1",
-    "babel-loader": "^7.0.0",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-0": "^6.24.1",
-    "css-loader": "^0.28.1",
-    "style-loader": "^0.17.0",
-    "webpack": "^2.5.1",
-    "webpack-dev-server": "^2.4.5"
-  },
-  "scripts": {}
+    "nwb": "0.15.x",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "react-redux": "^5.0.5",
+    "redux": "^3.6.0"
+  }
 }
