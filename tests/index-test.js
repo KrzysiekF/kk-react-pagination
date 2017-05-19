@@ -28,7 +28,7 @@ describe('Component', () => {
       <div>2</div>
     </Component>, node, () => {
       console.log('node.innerHTML: ', node.innerHTML);
-      expect(node.innerHTML).not.toEqual('<div data-reactroot=""><div>1</div><div>2</div><div><button disabled="">prev</button><button class="active">1</button><button disabled="">next</button></div></div>')
+      expect(node.innerHTML).toEqual('<div data-reactroot=""><div>1</div><div>2</div><div><button disabled="">prev</button><button class="active">1</button><button disabled="">next</button></div></div>')
     })
   })
 })
