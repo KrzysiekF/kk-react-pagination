@@ -1,10 +1,14 @@
+## This is Alpha version, pleace don't use in production
+
+---
+
 # kk-react-pagination
 
 [![Travis][build-badge]][build]
 [![npm package][npm-badge]][npm]
 [![Coveralls][coveralls-badge]][coveralls]
 
-Describe kk-react-pagination here.
+Pagination component for ReactJS
 
 [build-badge]: https://img.shields.io/travis/user/repo/master.png?style=flat-square
 [build]: https://travis-ci.org/user/repo
