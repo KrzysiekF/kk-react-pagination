@@ -23,7 +23,7 @@ describe('Component', () => {
     );
 
     render(<Component store={store} />, node, () => {
-      expect(node.innerHTML).toContain('kk-react-pagination demo')
+      expect(node.innerHTML).not.toEqual()
     })
   })
 })
