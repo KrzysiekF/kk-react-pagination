@@ -1,6 +1,6 @@
 {
   "name": "kk-react-pagination",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "Pagination component for ReactJS",
   "main": "index.js",
   "repository": {
