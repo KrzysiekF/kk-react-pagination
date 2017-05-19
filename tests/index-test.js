@@ -18,7 +18,7 @@ describe('Component', () => {
 
   it('displays a welcome message', () => {
     const createStoreWithMiddleware = applyMiddleware()(createStore);
-    export const store = createStoreWithMiddleware(
+    const store = createStoreWithMiddleware(
       reducers,
     );
 
