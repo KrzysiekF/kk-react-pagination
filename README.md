@@ -11,10 +11,10 @@
 Pagination component for ReactJS
 
 [build-badge]: https://travis-ci.org/KrzysiekF/kk-react-pagination.svg?branch=master&style=flat-square
-[build]: https://travis-ci.org/user/repo
+[build]: https://travis-ci.org/KrzysiekF/kk-react-pagination
 
 [npm-badge]: https://img.shields.io/npm/v/kk-react-pagination.png?style=flat-square
 [npm]: https://www.npmjs.org/package/kk-react-pagination
 
-[coveralls-badge]: https://img.shields.io/coveralls/user/repo/master.png?style=flat-square
-[coveralls]: https://coveralls.io/github/user/repo
+[coveralls-badge]: https://coveralls.io/github/KrzysiekF/kk-react-pagination?branch=master&style=flat-square
+[coveralls]: https://coveralls.io/github/KrzysiekF/kk-react-pagination
