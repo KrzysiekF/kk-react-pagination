@@ -7,14 +7,24 @@ import Pagination from '../../src'
 import reducers from './reducers';
 
 class Demo extends Component {
+
+  renderDemoList(elementsNumber = 10) {
+    let count = 0;
+    let list = [];
+
+    do {
+      list.push(<div>{count + 1}</div>);
+      count++;
+    } while (count < elementsNumber);
+
+    return list;
+  }
+
   render() {
     return <div>
-      <h1>kk-react-pagination Demo</h1>
+      <h1>kk-react-pagination demo</h1>
       <Pagination name="test">
-        <div>1</div>
-        <div>2</div>
-        <div>3</div>
-        <div>4</div>
+        {this.renderDemoList()}
       </Pagination>
     </div>
   }
