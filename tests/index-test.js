@@ -27,7 +27,7 @@ describe('Component', () => {
       <div>1</div>
       <div>2</div>
     </Component>, node, () => {
-      expect(node.innerHTML).not.toEqual()
+      expect(node.innerHTML).not.toEqual('')
     })
   })
 })
