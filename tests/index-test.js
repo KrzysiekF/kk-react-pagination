@@ -23,7 +23,10 @@ describe('Component', () => {
       reducers,
     );
 
-    render(<Component store={store} />, node, () => {
+    render(<Component store={store}>
+      <div>1</div>
+      <div>2</div>
+    </Component>, node, () => {
       expect(node.innerHTML).not.toEqual()
     })
   })
