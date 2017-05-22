@@ -6,6 +6,11 @@ import { Provider } from 'react-redux';
 import Pagination from '../../src'
 import reducers from './reducers';
 
+import Prism from 'prismjs'
+import 'prismjs/themes/prism-okaidia.css'
+import 'prismjs/components/prism-handlebars.min.js'
+import 'prismjs/components/prism-lua.min.js'
+
 class Demo extends Component {
 
   renderDemoList(elementsNumber = 10) {
@@ -21,9 +26,11 @@ class Demo extends Component {
   }
 
   render() {
+    Prism.highlightAll();
+
     return <div>
       <h1>kk-react-pagination demo</h1>
-      <Pagination name="test">
+      <Pagination name="test"> 
         {this.renderDemoList()}
       </Pagination>
     </div>
