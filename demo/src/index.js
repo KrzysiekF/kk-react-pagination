@@ -61,13 +61,18 @@ class Demo extends Component {
               <th>description</th>
             </tr>
             <tr>
+              <td><code>name</code></td>
+              <td><code>''</code> (<code>string</code>)</td>
+              <td></td>
+            </tr>
+            <tr>
               <td><code>pageSize</code></td>
-              <td>5 (<code>number</code>)</td>
+              <td><code>5</code> (<code>number</code>)</td>
               <td></td>
             </tr>
             <tr>
               <td><code>startPage</code></td>
-              <td>1 (<code>number</code>)</td>
+              <td><code>1</code> (<code>number</code>)</td>
               <td></td>
             </tr>
           </table>
