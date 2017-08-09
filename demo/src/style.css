@@ -58,4 +58,20 @@ footer {
     text-align: center;
     font-size: 14px;
     color: #333;
+    padding: 0 0 50px 0;
+}
+
+.list-element {
+    line-height: 1.6;
+    border-bottom: 1px solid #eee;
+    padding: 5px 15px;
+}
+
+.list-element:first-of-type {
+    border-top: 1px solid #eee;
+}
+
+.list-element > span {
+    display: inline-block;
+    width: 30px;
 }

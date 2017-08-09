@@ -18,8 +18,7 @@ KK React Pagination
 Installation / Download
 -----------------------
 
-### NPM
-
+#### NPM
                 
 `npm install --save kk-react-pagination`
                 
@@ -27,7 +26,7 @@ Installation / Download
 Examples
 --------
 
-`<pagination name="test"> (content) </pagination>`
+`<pagination name="demo"> (content) </pagination>`
 
 Options
 -------
@@ -37,3 +36,6 @@ Options
 | `name`      | `''` (`string`) |             |
 | `pageSize`  | `5` (`number`)  |             |
 | `startPage` | `1` (`number`)  |             |
+| `prevLabel` | `prev` (`string`)  |             |
+| `nextLabel` | `next` (`string`)  |             |
+| `align` | `center` (`string`)  | `left ; center ; right` |
