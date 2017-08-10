@@ -19,13 +19,19 @@ Installation / Download
 -----------------------
 
 #### NPM
-                
 `npm install --save kk-react-pagination`
                 
-              
+Install/Import
+--------
+#### ES6:
+`import Pagination from 'kk-react-pagination';`
+
+`import 'kk-react-pagination/lib/assets/style.css';`
+
+(optional) `import 'kk-react-pagination/lib/assets/templates/simple.css';`
+
 Examples
 --------
-
 `<pagination name="demo"> (content) </pagination>`
 
 Options
