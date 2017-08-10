@@ -1,0 +1,15 @@
+.kk-pagination {
+    margin: 10px 0;
+}
+
+.kk-pagination.kk-left {
+    text-align: left;
+}
+
+.kk-pagination.kk-center {
+    text-align: center;
+}
+
+.kk-pagination.kk-right {
+    text-align: right;
+}

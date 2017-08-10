@@ -1,5 +1,5 @@
 /*!
- * kk-react-pagination v0.2.2 - https://github.com/KrzysiekF/kk-react-pagination#readme
+ * kk-react-pagination v0.2.3 - https://github.com/KrzysiekF/kk-react-pagination#readme
  * MIT Licensed
  */
 (function webpackUniversalModuleDefinition(root, factory) {

@@ -1,0 +1,28 @@
+.kk-pagination > button {
+    background-color: #4ab9da;
+    color: #ffffff;
+    border: 1px solid #4ab9da;
+    line-height: 1.6rem;
+    font-size: 0.875rem;
+    cursor: pointer;
+    margin: 0 2px;
+    padding: 0 10px;
+}
+
+.kk-pagination > button[disabled],
+.kk-pagination > button[disabled]:hover {
+    background-color: #333333;
+    border-color: #333333;
+    cursor: not-allowed;
+}
+
+.kk-pagination > button.active,
+.kk-pagination > button.active:hover {
+    background-color: #ffffff;
+    color: #666666;
+}
+
+.kk-pagination > button:hover {
+    background-color: #3c80a0;
+    border-color: #3c80a0;
+}
