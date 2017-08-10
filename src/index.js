@@ -4,9 +4,6 @@ import { connect } from 'react-redux';
 import PagerCalc from './pagination/calculations';
 import { setPageAction, setPagesCountAction } from './pagination/actions';
 
-import './assets/style.css';
-import './assets/template/simple.css';
-
 class Pagination extends Component {
   static defaultProps = {
     name: 'pagination',

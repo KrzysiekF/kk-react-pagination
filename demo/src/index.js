@@ -10,6 +10,9 @@ import 'gridlex/docs/gridlex.min.css';
 import Pagination from '../../src';
 import reducers from './reducers';
 
+import '../../src/assets/style.css';
+import '../../src/assets/template/simple.css';
+
 import './style.css';
 
 
