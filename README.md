@@ -21,7 +21,7 @@ Installation / Download
 #### NPM
 `npm install --save kk-react-pagination`
                 
-Install/Import
+Import
 --------
 #### ES6:
 `import Pagination from 'kk-react-pagination';`
