@@ -191,7 +191,7 @@ class Demo extends Component {
                 </tr>
                 <tr>
                   <td><code>openPageByElementId</code></td>
-                  <td><code>false</code> (<code>number</code> or <code>string</code>)</td>
+                  <td><code>0</code> (<code>number</code>)</td>
                   <td>
                     Must be unique.
                   </td>

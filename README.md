@@ -46,4 +46,4 @@ Options
 | `nextLabel` | `next` (`string`)  |             |
 | `align` | `center` (`string`)  | `left ; center ; right` |
 | `onePageHide` | `false ` (`bool`)  | Hide pagination when is only one page. |
-| `openPageByElementId` | `false` (`number` or `string`)  | Must be unique. |
+| `openPageByElementId` | `0` (`number`)  | Must be unique. |

@@ -16,7 +16,7 @@ class Pagination extends Component {
     setPagesCountAction: () => {},
     paginator: {},
     onePageHide: false,
-    openPageByElementId: false,
+    openPageByElementId: 0,
   };
 
   static propTypes = {
@@ -31,7 +31,7 @@ class Pagination extends Component {
     setPagesCountAction: PropTypes.func,
     children: PropTypes.array.isRequired,
     onePageHide: PropTypes.bool,
-    openPageByElementId: PropTypes.any,
+    openPageByElementId: PropTypes.number,
   };
 
   constructor(props) {
@@ -62,12 +62,14 @@ class Pagination extends Component {
   }
 
   findPageById() {
-    const id = this.props.openPageByElementId;
+    const id = parseInt(this.props.openPageByElementId, 10);
     const elements = this.props.children;
     let index = false;
 
     elements.map((element, k) => {
-      if (element.props['data-pagination-id'] === id) {
+      const elementID = parseInt(element.props['data-pagination-id'], 10);
+      
+      if (elementID === id) {
         index = k;
       }
 
@@ -96,7 +98,7 @@ class Pagination extends Component {
   }
 
   renderPaginator() {
-    if (this.props.onePageHide) {
+    if (this.props.onePageHide && this.props.paginator.pagesCount === 1) {
       return false;
     }
 

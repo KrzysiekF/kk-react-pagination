@@ -1,5 +1,5 @@
 /*!
- * kk-react-pagination v0.2.4 - https://github.com/KrzysiekF/kk-react-pagination#readme
+ * kk-react-pagination v0.3.0 - https://github.com/KrzysiekF/kk-react-pagination#readme
  * MIT Licensed
  */
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -1270,12 +1270,14 @@ var Pagination = (_temp = _class = function (_Component) {
   };
 
   Pagination.prototype.findPageById = function findPageById() {
-    var id = this.props.openPageByElementId;
+    var id = parseInt(this.props.openPageByElementId, 10);
     var elements = this.props.children;
     var index = false;
 
     elements.map(function (element, k) {
-      if (element.props['data-pagination-id'] === id) {
+      var elementID = parseInt(element.props['data-pagination-id'], 10);
+
+      if (elementID === id) {
         index = k;
       }
 
@@ -1306,7 +1308,7 @@ var Pagination = (_temp = _class = function (_Component) {
   Pagination.prototype.renderPaginator = function renderPaginator() {
     var _this2 = this;
 
-    if (this.props.onePageHide) {
+    if (this.props.onePageHide && this.props.paginator.pagesCount === 1) {
       return false;
     }
 
@@ -1393,7 +1395,7 @@ var Pagination = (_temp = _class = function (_Component) {
   setPagesCountAction: function setPagesCountAction() {},
   paginator: {},
   onePageHide: false,
-  openPageByElementId: false
+  openPageByElementId: 0
 }, _class.propTypes = {
   name: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string.isRequired,
   pageSize: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.number,
@@ -1406,7 +1408,7 @@ var Pagination = (_temp = _class = function (_Component) {
   setPagesCountAction: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func,
   children: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.array.isRequired,
   onePageHide: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.bool,
-  openPageByElementId: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.any
+  openPageByElementId: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.number
 }, _temp);
 
 

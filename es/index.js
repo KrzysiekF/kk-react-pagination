@@ -44,12 +44,14 @@ var Pagination = (_temp = _class = function (_Component) {
   };
 
   Pagination.prototype.findPageById = function findPageById() {
-    var id = this.props.openPageByElementId;
+    var id = parseInt(this.props.openPageByElementId, 10);
     var elements = this.props.children;
     var index = false;
 
     elements.map(function (element, k) {
-      if (element.props['data-pagination-id'] === id) {
+      var elementID = parseInt(element.props['data-pagination-id'], 10);
+
+      if (elementID === id) {
         index = k;
       }
 
@@ -80,7 +82,7 @@ var Pagination = (_temp = _class = function (_Component) {
   Pagination.prototype.renderPaginator = function renderPaginator() {
     var _this2 = this;
 
-    if (this.props.onePageHide) {
+    if (this.props.onePageHide && this.props.paginator.pagesCount === 1) {
       return false;
     }
 
@@ -167,7 +169,7 @@ var Pagination = (_temp = _class = function (_Component) {
   setPagesCountAction: function setPagesCountAction() {},
   paginator: {},
   onePageHide: false,
-  openPageByElementId: false
+  openPageByElementId: 0
 }, _temp);
 Pagination.propTypes = process.env.NODE_ENV !== "production" ? {
   name: PropTypes.string.isRequired,
@@ -181,7 +183,7 @@ Pagination.propTypes = process.env.NODE_ENV !== "production" ? {
   setPagesCountAction: PropTypes.func,
   children: PropTypes.array.isRequired,
   onePageHide: PropTypes.bool,
-  openPageByElementId: PropTypes.any
+  openPageByElementId: PropTypes.number
 } : {};
 
 
