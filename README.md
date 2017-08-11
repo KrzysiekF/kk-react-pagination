@@ -1,8 +1,4 @@
-## This is Alpha version, pleace don't use in production
-
----
-
-# kk-react-pagination
+# KK React Pagination
 
 [![npm package](https://img.shields.io/npm/v/kk-react-pagination.png?style=flat-square)](https://www.npmjs.org/package/kk-react-pagination)
 [![Travis](https://travis-ci.org/KrzysiekF/kk-react-pagination.svg?style=flat-square)](https://travis-ci.org/KrzysiekF/kk-react-pagination)
