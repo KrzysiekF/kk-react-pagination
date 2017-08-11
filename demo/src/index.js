@@ -22,7 +22,7 @@ class Demo extends Component {
     const list = [];
 
     do {
-      list.push(<div className="list-element"><span>{count + 1}.</span> Lorem ipsum dolor...</div>);
+      list.push(<div className="list-element" data-pagination-id={count + 1} key={count + 1}><span>{count + 1}.</span> Lorem ipsum dolor...</div>);
       count++;
     } while (count < elementsNumber);
 
@@ -54,11 +54,7 @@ class Demo extends Component {
             <h3>Simple</h3>
             <div className="grid">
               <div className="col-8">
-                <Pagination
-                  name="demo1"
-                  // prevLabel="&laquo;"
-                  // nextLabel="&raquo;"
-                >
+                <Pagination name="demo1">
                   {this.renderDemoList()}
                 </Pagination>
               </div>
@@ -102,48 +98,105 @@ class Demo extends Component {
                 </pre>
               </div>
             </div>
+
+            <h3>Open page by element ID</h3>
+            <div style={{ margin: '0 0 0 13px' }}>ID:</div>
+            <div className="grid">
+              <div className="col-8">
+                <Pagination
+                  name="demo3"
+                  pageSize={3}
+                  openPageByElementId={9}
+                  prevLabel="&laquo;"
+                  nextLabel="&raquo;"
+                >
+                  {this.renderDemoList()}
+                </Pagination>
+              </div>
+              <div className="col">
+                <pre>
+                  <code className="language-javascript">
+                    {`<Pagination
+  name="demo3"
+  pageSize={3}
+  openPageByElementId={9}
+  prevLabel="&laquo;"
+  nextLabel="&raquo;"
+>(...)</Pagination>`}
+                  </code>
+                </pre>
+                <div>Element:</div>
+                <pre>
+                  <code className="language-html">
+                    {`<div
+    className="list-element"
+    data-pagination-id={9}>
+    9. Lorem ipsum...
+ </div>`}
+                  </code>
+                </pre>
+              </div>
+            </div>
           </section>
 
           <section>
             <h2>Options</h2>
             <table className="table">
-              <tr>
-                <th>option</th>
-                <th>default</th>
-                <th>description</th>
-              </tr>
-              <tr>
-                <td><code>name</code></td>
-                <td><code>''</code> (<code>string</code>)</td>
-                <td />
-              </tr>
-              <tr>
-                <td><code>pageSize</code></td>
-                <td><code>5</code> (<code>number</code>)</td>
-                <td />
-              </tr>
-              <tr>
-                <td><code>startPage</code></td>
-                <td><code>1</code> (<code>number</code>)</td>
-                <td />
-              </tr>
-              <tr>
-                <td><code>prevLabel</code></td>
-                <td><code>prev</code> (<code>string</code>)</td>
-                <td />
-              </tr>
-              <tr>
-                <td><code>nextLabel</code></td>
-                <td><code>next</code> (<code>string</code>)</td>
-                <td />
-              </tr>
-              <tr>
-                <td><code>align</code></td>
-                <td><code>center</code> (<code>string</code>)</td>
-                <td>
-                  <code>left</code> || <code>center</code> || <code>right</code>
-                </td>
-              </tr>
+              <thead>
+                <tr>
+                  <th>option</th>
+                  <th>default</th>
+                  <th>description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>name</code></td>
+                  <td><code>''</code> (<code>string</code>)(required)</td>
+                  <td />
+                </tr>
+                <tr>
+                  <td><code>pageSize</code></td>
+                  <td><code>5</code> (<code>number</code>)</td>
+                  <td />
+                </tr>
+                <tr>
+                  <td><code>startPage</code></td>
+                  <td><code>1</code> (<code>number</code>)</td>
+                  <td />
+                </tr>
+                <tr>
+                  <td><code>prevLabel</code></td>
+                  <td><code>prev</code> (<code>string</code>)</td>
+                  <td />
+                </tr>
+                <tr>
+                  <td><code>nextLabel</code></td>
+                  <td><code>next</code> (<code>string</code>)</td>
+                  <td />
+                </tr>
+                <tr>
+                  <td><code>align</code></td>
+                  <td><code>center</code> (<code>string</code>)</td>
+                  <td>
+                    <code>left</code> || <code>center</code> || <code>right</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td><code>onePageHide</code></td>
+                  <td><code>false</code> (<code>bool</code>)</td>
+                  <td>
+                    Hide pagination when is only one page.
+                  </td>
+                </tr>
+                <tr>
+                  <td><code>openPageByElementId</code></td>
+                  <td><code>false</code> (<code>number</code> or <code>string</code>)</td>
+                  <td>
+                    Must be unique.
+                  </td>
+                </tr>
+              </tbody>
             </table>
           </section>
 

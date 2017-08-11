@@ -30,8 +30,37 @@ var Pagination = (_temp = _class = function (_Component) {
   }
 
   Pagination.prototype.componentWillMount = function componentWillMount() {
-    this.changePage(this.props.startPage);
+
+    if (this.props.startPage) {
+      this.changePage(this.props.startPage);
+    }
+
+    if (this.props.openPageByElementId) {
+      var page = this.findPageById();
+      this.changePage(page);
+    }
+
     this.props.setPagesCountAction(PagerCalc.pagesCount(this.props.children.length, this.props.pageSize), this.props.name);
+  };
+
+  Pagination.prototype.findPageById = function findPageById() {
+    var id = this.props.openPageByElementId;
+    var elements = this.props.children;
+    var index = false;
+
+    elements.map(function (element, k) {
+      if (element.props['data-pagination-id'] === id) {
+        index = k;
+      }
+
+      return element;
+    });
+
+    if (!index) {
+      console.warn('kk-react-pagination: I can\'t find element ID (data-pagination-id)');
+    }
+
+    return Math.ceil((index + 1) / this.props.pageSize);
   };
 
   Pagination.prototype.prevPage = function prevPage() {
@@ -50,6 +79,10 @@ var Pagination = (_temp = _class = function (_Component) {
 
   Pagination.prototype.renderPaginator = function renderPaginator() {
     var _this2 = this;
+
+    if (this.props.onePageHide) {
+      return false;
+    }
 
     var buttons = function buttons() {
       var buttonsArr = [];
@@ -131,19 +164,24 @@ var Pagination = (_temp = _class = function (_Component) {
   prevLabel: 'prev',
   nextLabel: 'next',
   setPageAction: function setPageAction() {},
-  setPagesCountAction: function setPagesCountAction() {}
+  setPagesCountAction: function setPagesCountAction() {},
+  paginator: {},
+  onePageHide: false,
+  openPageByElementId: false
 }, _temp);
 Pagination.propTypes = process.env.NODE_ENV !== "production" ? {
   name: PropTypes.string.isRequired,
   pageSize: PropTypes.number,
-  paginator: PropTypes.object.isRequired,
+  paginator: PropTypes.object,
   startPage: PropTypes.number,
   prevLabel: PropTypes.string,
   nextLabel: PropTypes.string,
   align: PropTypes.string,
   setPageAction: PropTypes.func,
   setPagesCountAction: PropTypes.func,
-  children: PropTypes.array.isRequired
+  children: PropTypes.array.isRequired,
+  onePageHide: PropTypes.bool,
+  openPageByElementId: PropTypes.any
 } : {};
 
 

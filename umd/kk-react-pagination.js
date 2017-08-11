@@ -1,5 +1,5 @@
 /*!
- * kk-react-pagination v0.2.3 - https://github.com/KrzysiekF/kk-react-pagination#readme
+ * kk-react-pagination v0.2.4 - https://github.com/KrzysiekF/kk-react-pagination#readme
  * MIT Licensed
  */
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -1256,8 +1256,37 @@ var Pagination = (_temp = _class = function (_Component) {
   }
 
   Pagination.prototype.componentWillMount = function componentWillMount() {
-    this.changePage(this.props.startPage);
+
+    if (this.props.startPage) {
+      this.changePage(this.props.startPage);
+    }
+
+    if (this.props.openPageByElementId) {
+      var page = this.findPageById();
+      this.changePage(page);
+    }
+
     this.props.setPagesCountAction(__WEBPACK_IMPORTED_MODULE_3__pagination_calculations__["a" /* default */].pagesCount(this.props.children.length, this.props.pageSize), this.props.name);
+  };
+
+  Pagination.prototype.findPageById = function findPageById() {
+    var id = this.props.openPageByElementId;
+    var elements = this.props.children;
+    var index = false;
+
+    elements.map(function (element, k) {
+      if (element.props['data-pagination-id'] === id) {
+        index = k;
+      }
+
+      return element;
+    });
+
+    if (!index) {
+      console.warn('kk-react-pagination: I can\'t find element ID (data-pagination-id)');
+    }
+
+    return Math.ceil((index + 1) / this.props.pageSize);
   };
 
   Pagination.prototype.prevPage = function prevPage() {
@@ -1276,6 +1305,10 @@ var Pagination = (_temp = _class = function (_Component) {
 
   Pagination.prototype.renderPaginator = function renderPaginator() {
     var _this2 = this;
+
+    if (this.props.onePageHide) {
+      return false;
+    }
 
     var buttons = function buttons() {
       var buttonsArr = [];
@@ -1357,18 +1390,23 @@ var Pagination = (_temp = _class = function (_Component) {
   prevLabel: 'prev',
   nextLabel: 'next',
   setPageAction: function setPageAction() {},
-  setPagesCountAction: function setPagesCountAction() {}
+  setPagesCountAction: function setPagesCountAction() {},
+  paginator: {},
+  onePageHide: false,
+  openPageByElementId: false
 }, _class.propTypes = {
   name: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string.isRequired,
   pageSize: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.number,
-  paginator: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.object.isRequired,
+  paginator: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.object,
   startPage: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.number,
   prevLabel: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string,
   nextLabel: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string,
   align: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string,
   setPageAction: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func,
   setPagesCountAction: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func,
-  children: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.array.isRequired
+  children: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.array.isRequired,
+  onePageHide: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.bool,
+  openPageByElementId: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.any
 }, _temp);
 
 
