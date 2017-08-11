@@ -47,3 +47,4 @@ Options
 | `align` | `center` (`string`)  | `left ; center ; right` |
 | `onePageHide` | `false ` (`bool`)  | Hide pagination when is only one page. |
 | `openPageByElementId` | `0` (`number`)  | Must be unique. |
+| `displayedPages` | `5` (`number`)  | How many page numbers should be visible while navigating. |

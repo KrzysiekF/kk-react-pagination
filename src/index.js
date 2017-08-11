@@ -17,6 +17,7 @@ class Pagination extends Component {
     paginator: {},
     onePageHide: false,
     openPageByElementId: 0,
+    displayedPages: 5,
   };
 
   static propTypes = {
@@ -32,6 +33,7 @@ class Pagination extends Component {
     children: PropTypes.array.isRequired,
     onePageHide: PropTypes.bool,
     openPageByElementId: PropTypes.number,
+    displayedPages: PropTypes.number,
   };
 
   constructor(props) {
@@ -46,7 +48,6 @@ class Pagination extends Component {
   }
 
   componentWillMount() {
-
     if (this.props.startPage) {
       this.changePage(this.props.startPage);
     }
@@ -68,7 +69,7 @@ class Pagination extends Component {
 
     elements.map((element, k) => {
       const elementID = parseInt(element.props['data-pagination-id'], 10);
-      
+
       if (elementID === id) {
         index = k;
       }
@@ -77,7 +78,8 @@ class Pagination extends Component {
     });
 
     if (!index) {
-      console.warn('kk-react-pagination: I can\'t find element ID (data-pagination-id)');
+      console.warn(
+          'kk-react-pagination: I can\'t find element ID (data-pagination-id)');
     }
 
     return Math.ceil((index + 1) / this.props.pageSize);
@@ -97,26 +99,82 @@ class Pagination extends Component {
     this.props.setPageAction(page, this.props.name);
   }
 
+  calculateRanges() {
+    const { displayedPages } = this.props;
+    const { currentPage } = this.props.paginator;
+    const range = Math.floor(displayedPages / 2);
+    const minPage = currentPage - range;
+    const maxPage = currentPage + range;
+
+    return { minPage, maxPage };
+  }
+
+  shouldShowPage(page) {
+    let shouldShow = false;
+    const { pagesCount } = this.props.paginator;
+    const range = this.calculateRanges();
+
+    if (page === 1 || (page >= range.minPage && page <= range.maxPage) ||
+        page === pagesCount) {
+      shouldShow = true;
+    }
+
+    return shouldShow;
+  }
+
+  resetSpaceData() {
+    this.prevSpaceAdded = false;
+    this.nextSpaceAdded = false;
+  }
+
+  shouldAddSpace(page) {
+    let shouldShow = false;
+    const { pagesCount } = this.props.paginator;
+    const range = this.calculateRanges();
+
+    if (page > 1 && page < range.minPage && !this.prevSpaceAdded) {
+      shouldShow = true;
+      this.prevSpaceAdded = true;
+    }
+
+    if (page < pagesCount && page > range.maxPage && !this.nextSpaceAdded) {
+      shouldShow = true;
+      this.nextSpaceAdded = true;
+    }
+
+    return shouldShow;
+  }
+
   renderPaginator() {
     if (this.props.onePageHide && this.props.paginator.pagesCount === 1) {
       return false;
     }
 
+    this.resetSpaceData();
+
     const buttons = () => {
       const buttonsArr = [];
 
-      for (let i = 1; i <= this.props.paginator.pagesCount; i += 1) {
-        buttonsArr.push(
-          <button
-            className={`${i === this.props.paginator.currentPage
-                    ? 'active'
-                    : ''}`}
-            key={i}
-            onClick={() => { this.changePage(i); }}
-          >
-            {i}
-          </button>,
-        );
+      for (let i = 1; i <= this.pnrops.paginator.pagesCount; i += 1) {
+        if (this.shouldShowPage(i)) {
+          buttonsArr.push(
+            <button
+              className={`${i === this.props.paginator.currentPage
+                      ? 'active'
+                      : ''}`}
+              key={i}
+              onClick={() => { this.changePage(i); }}
+            >
+              {i}
+            </button>,
+          );
+        }
+
+        if (this.shouldAddSpace(i)) {
+          buttonsArr.push(
+            <span key={i}>...</span>,
+          );
+        }
       }
 
       return buttonsArr;
@@ -136,7 +194,7 @@ class Pagination extends Component {
         <button
           onClick={this.nextPage}
           disabled={this.props.paginator.currentPage >=
-            this.props.paginator.pagesCount}
+              this.props.paginator.pagesCount}
         >{this.props.nextLabel}
         </button>
       </div>
@@ -149,10 +207,10 @@ class Pagination extends Component {
     }
 
     const elements = this.props.children.map(
-      (element, key) => (
-          PagerCalc.canDisplayElement(key, this.props.paginator.currentPage,
-              this.props.pageSize) ? element : ''),
-      );
+        (element, key) => (
+            PagerCalc.canDisplayElement(key, this.props.paginator.currentPage,
+                this.props.pageSize) ? element : ''),
+    );
 
     return (
       <div>

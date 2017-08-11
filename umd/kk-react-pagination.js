@@ -1,5 +1,5 @@
 /*!
- * kk-react-pagination v0.3.0 - https://github.com/KrzysiekF/kk-react-pagination#readme
+ * kk-react-pagination v0.3.1 - https://github.com/KrzysiekF/kk-react-pagination#readme
  * MIT Licensed
  */
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -1256,7 +1256,6 @@ var Pagination = (_temp = _class = function (_Component) {
   }
 
   Pagination.prototype.componentWillMount = function componentWillMount() {
-
     if (this.props.startPage) {
       this.changePage(this.props.startPage);
     }
@@ -1305,6 +1304,54 @@ var Pagination = (_temp = _class = function (_Component) {
     this.props.setPageAction(page, this.props.name);
   };
 
+  Pagination.prototype.calculateRanges = function calculateRanges() {
+    var displayedPages = this.props.displayedPages;
+    var currentPage = this.props.paginator.currentPage;
+
+    var range = Math.floor(displayedPages / 2);
+    var minPage = currentPage - range;
+    var maxPage = currentPage + range;
+
+    return { minPage: minPage, maxPage: maxPage };
+  };
+
+  Pagination.prototype.shouldShowPage = function shouldShowPage(page) {
+    var shouldShow = false;
+    var pagesCount = this.props.paginator.pagesCount;
+
+    var range = this.calculateRanges();
+
+    if (page === 1 || page >= range.minPage && page <= range.maxPage || page === pagesCount) {
+      shouldShow = true;
+    }
+
+    return shouldShow;
+  };
+
+  Pagination.prototype.resetSpaceData = function resetSpaceData() {
+    this.prevSpaceAdded = false;
+    this.nextSpaceAdded = false;
+  };
+
+  Pagination.prototype.shouldAddSpace = function shouldAddSpace(page) {
+    var shouldShow = false;
+    var pagesCount = this.props.paginator.pagesCount;
+
+    var range = this.calculateRanges();
+
+    if (page > 1 && page < range.minPage && !this.prevSpaceAdded) {
+      shouldShow = true;
+      this.prevSpaceAdded = true;
+    }
+
+    if (page < pagesCount && page > range.maxPage && !this.nextSpaceAdded) {
+      shouldShow = true;
+      this.nextSpaceAdded = true;
+    }
+
+    return shouldShow;
+  };
+
   Pagination.prototype.renderPaginator = function renderPaginator() {
     var _this2 = this;
 
@@ -1312,24 +1359,36 @@ var Pagination = (_temp = _class = function (_Component) {
       return false;
     }
 
+    this.resetSpaceData();
+
     var buttons = function buttons() {
       var buttonsArr = [];
 
       var _loop = function _loop(i) {
-        buttonsArr.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'button',
-          {
-            className: '' + (i === _this2.props.paginator.currentPage ? 'active' : ''),
-            key: i,
-            onClick: function onClick() {
-              _this2.changePage(i);
-            }
-          },
-          i
-        ));
+        if (_this2.shouldShowPage(i)) {
+          buttonsArr.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'button',
+            {
+              className: '' + (i === _this2.props.paginator.currentPage ? 'active' : ''),
+              key: i,
+              onClick: function onClick() {
+                _this2.changePage(i);
+              }
+            },
+            i
+          ));
+        }
+
+        if (_this2.shouldAddSpace(i)) {
+          buttonsArr.push(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'span',
+            { key: i },
+            '...'
+          ));
+        }
       };
 
-      for (var i = 1; i <= _this2.props.paginator.pagesCount; i += 1) {
+      for (var i = 1; i <= _this2.pnrops.paginator.pagesCount; i += 1) {
         _loop(i);
       }
 
@@ -1395,7 +1454,8 @@ var Pagination = (_temp = _class = function (_Component) {
   setPagesCountAction: function setPagesCountAction() {},
   paginator: {},
   onePageHide: false,
-  openPageByElementId: 0
+  openPageByElementId: 0,
+  displayedPages: 5
 }, _class.propTypes = {
   name: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string.isRequired,
   pageSize: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.number,
@@ -1408,7 +1468,8 @@ var Pagination = (_temp = _class = function (_Component) {
   setPagesCountAction: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func,
   children: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.array.isRequired,
   onePageHide: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.bool,
-  openPageByElementId: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.number
+  openPageByElementId: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.number,
+  displayedPages: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.number
 }, _temp);
 
 

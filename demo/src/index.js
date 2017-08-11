@@ -15,14 +15,17 @@ import '../../src/assets/templates/simple.css';
 
 import './style.css';
 
-
 class Demo extends Component {
   renderDemoList(elementsNumber = 10) {
     let count = 0;
     const list = [];
 
     do {
-      list.push(<div className="list-element" data-pagination-id={count + 1} key={count + 1}><span>{count + 1}.</span> Lorem ipsum dolor...</div>);
+      list.push(<div
+        className="list-element" data-pagination-id={count + 1}
+        key={count + 1}
+      ><span>{count + 1}.</span> Lorem ipsum
+        dolor...</div>);
       count++;
     } while (count < elementsNumber);
 
@@ -137,6 +140,28 @@ class Demo extends Component {
                 </pre>
               </div>
             </div>
+
+            <h3>Many pages</h3>
+            <div className="grid">
+              <div className="col-8">
+                <Pagination
+                  name="demo4"
+                  displayedPages={3}
+                >
+                  {this.renderDemoList(100)}
+                </Pagination>
+              </div>
+              <div className="col">
+                <pre>
+                  <code className="language-javascript">
+                    {`<Pagination
+  name="demo4"
+  displayedPages={3}
+>(...)</Pagination>`}
+                  </code>
+                </pre>
+              </div>
+            </div>
           </section>
 
           <section>
@@ -179,7 +204,8 @@ class Demo extends Component {
                   <td><code>align</code></td>
                   <td><code>center</code> (<code>string</code>)</td>
                   <td>
-                    <code>left</code> || <code>center</code> || <code>right</code>
+                    <code>left</code> || <code>center</code> ||
+                    <code>right</code>
                   </td>
                 </tr>
                 <tr>
@@ -194,6 +220,13 @@ class Demo extends Component {
                   <td><code>0</code> (<code>number</code>)</td>
                   <td>
                     Must be unique.
+                  </td>
+                </tr>
+                <tr>
+                  <td><code>displayedPages</code></td>
+                  <td><code>5</code> (<code>number</code>)</td>
+                  <td>
+                    How many page numbers should be visible while navigating.
                   </td>
                 </tr>
               </tbody>
@@ -213,7 +246,8 @@ const createStoreWithMiddleware = applyMiddleware()(createStore);
 export const store = createStoreWithMiddleware(
     reducers,
     // eslint-disable-next-line
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+    window.__REDUX_DEVTOOLS_EXTENSION__ &&
+    window.__REDUX_DEVTOOLS_EXTENSION__(),
 );
 
 render(
