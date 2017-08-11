@@ -155,7 +155,7 @@ class Pagination extends Component {
     const buttons = () => {
       const buttonsArr = [];
 
-      for (let i = 1; i <= this.pnrops.paginator.pagesCount; i += 1) {
+      for (let i = 1; i <= this.props.paginator.pagesCount; i += 1) {
         if (this.shouldShowPage(i)) {
           buttonsArr.push(
             <button

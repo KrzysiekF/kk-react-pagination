@@ -162,7 +162,7 @@ var Pagination = (_temp = _class = function (_Component) {
         }
       };
 
-      for (var i = 1; i <= _this2.pnrops.paginator.pagesCount; i += 1) {
+      for (var i = 1; i <= _this2.props.paginator.pagesCount; i += 1) {
         _loop(i);
       }
 

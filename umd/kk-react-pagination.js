@@ -1,5 +1,5 @@
 /*!
- * kk-react-pagination v0.3.1 - https://github.com/KrzysiekF/kk-react-pagination#readme
+ * kk-react-pagination v1.0.0 - https://github.com/KrzysiekF/kk-react-pagination#readme
  * MIT Licensed
  */
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -1388,7 +1388,7 @@ var Pagination = (_temp = _class = function (_Component) {
         }
       };
 
-      for (var i = 1; i <= _this2.pnrops.paginator.pagesCount; i += 1) {
+      for (var i = 1; i <= _this2.props.paginator.pagesCount; i += 1) {
         _loop(i);
       }
 
