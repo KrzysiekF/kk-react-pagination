@@ -14,7 +14,9 @@ class Pagination extends Component {
     nextLabel: 'next',
     setPageAction: () => {},
     setPagesCountAction: () => {},
-    paginator: {},
+    paginator: {
+      currentPage: 1,
+    },
     onePageHide: false,
     openPageByElementId: 0,
     displayedPages: 5,
@@ -30,7 +32,7 @@ class Pagination extends Component {
     align: PropTypes.string,
     setPageAction: PropTypes.func,
     setPagesCountAction: PropTypes.func,
-    children: PropTypes.array.isRequired,
+    children: PropTypes.any.isRequired,
     onePageHide: PropTypes.bool,
     openPageByElementId: PropTypes.number,
     displayedPages: PropTypes.number,
@@ -67,6 +69,10 @@ class Pagination extends Component {
     const elements = this.props.children;
     let index = false;
 
+    if (!elements) {
+      return false;
+    }
+
     elements.map((element, k) => {
       const elementID = parseInt(element.props['data-pagination-id'], 10);
 
@@ -80,6 +86,8 @@ class Pagination extends Component {
     if (!index) {
       console.warn(
           'kk-react-pagination: I can\'t find element ID (data-pagination-id)');
+
+      return 1;
     }
 
     return Math.ceil((index + 1) / this.props.pageSize);
@@ -202,9 +210,14 @@ class Pagination extends Component {
   }
 
   render() {
-    if (!this.props.paginator) {
+    if (!this.props.paginator || !this.props.children.length) {
       return <div>Loading...</div>;
     }
+
+    console.log('--> this.props.children: ', this.props.children);
+    console.log('currentPage: ', this.props.paginator.currentPage);
+    console.log('pageSize: ', this.props.pageSize);
+    console.log('============================');
 
     const elements = this.props.children.map(
         (element, key) => (

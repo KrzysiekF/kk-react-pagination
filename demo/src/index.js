@@ -17,6 +17,7 @@ import './style.css';
 
 class Demo extends Component {
   renderDemoList(elementsNumber = 10) {
+    return false;
     let count = 0;
     const list = [];
 
@@ -32,11 +33,81 @@ class Demo extends Component {
     return list;
   }
 
+  renderBigDataDemo(elementsNumber = 10) {
+    let count = 0;
+    const pickupPoints = [];
+    const primaryPointID = null;
+    const selectedPickupPoint = { id: 90 };
+    const deliveryType = { logisticType: 'xxx' };
+
+    do {
+      pickupPoints.push({
+        id: count,
+        symbol: 'BAB01N',
+        name: 'BAB01N',
+        street: 'Wolsztyska 1',
+        city: 'Babimost',
+        postCode: '66-110',
+        country: 'PL',
+        region: null,
+        description: 'Przy markecie POLOmarket',
+        latitude: 52.16529,
+        longitude: 15.83818,
+        logisticType: 4,
+      });
+      count++;
+    } while (count < elementsNumber);
+
+    const html = pickupPoints.map((pickupPoint) => {
+      if (primaryPointID && primaryPointID === pickupPoint.id) {
+        return null;
+      }
+
+      return (
+        <div
+          className="pickup-points-list-element"
+          data-pagination-id={pickupPoint.id}
+          key={pickupPoint.id}
+        >
+          <label
+            data-point-id={pickupPoint.id}
+            htmlFor={`nf-marker-pickuppoint-id-${pickupPoint.id}`}
+          >
+            <input
+              type="radio"
+              name="point_primary"
+              id={`nf-marker-pickuppoint-id-${pickupPoint.id}`}
+              onChange={() => {}}
+              checked={
+                    selectedPickupPoint &&
+                    selectedPickupPoint.id === pickupPoint.id
+                  }
+            />
+            <div className={`point-${deliveryType.logisticType}`}>
+              <div>
+                {pickupPoint.id} - <strong>{pickupPoint.symbol}</strong>
+              </div>
+              <div>
+                {`${pickupPoint.street}, ${pickupPoint.postCode} ${pickupPoint.city}`}
+              </div>
+            </div>
+          </label>
+        </div>
+      );
+    });
+
+    return html;
+  }
+
   render() {
     Prism.highlightAll();
 
     return (
       <div>
+        <Pagination name="pickupPoints" openPageByElementId={94} onePageHide prevLabel="&laquo;" nextLabel="&raquo;">
+          {this.renderBigDataDemo(1000)}
+        </Pagination>
+
         <div className="content">
           <h1 className="logo">KK React Pagination</h1>
 

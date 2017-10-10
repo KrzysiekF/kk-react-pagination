@@ -47,6 +47,10 @@ var Pagination = (_temp = _class = function (_Component) {
     var elements = this.props.children;
     var index = false;
 
+    if (!elements) {
+      return false;
+    }
+
     elements.map(function (element, k) {
       var elementID = parseInt(element.props['data-pagination-id'], 10);
 
@@ -59,6 +63,8 @@ var Pagination = (_temp = _class = function (_Component) {
 
     if (!index) {
       console.warn('kk-react-pagination: I can\'t find element ID (data-pagination-id)');
+
+      return 1;
     }
 
     return Math.ceil((index + 1) / this.props.pageSize);
@@ -196,13 +202,18 @@ var Pagination = (_temp = _class = function (_Component) {
   Pagination.prototype.render = function render() {
     var _this3 = this;
 
-    if (!this.props.paginator) {
+    if (!this.props.paginator || !this.props.children.length) {
       return React.createElement(
         'div',
         null,
         'Loading...'
       );
     }
+
+    console.log('--> this.props.children: ', this.props.children);
+    console.log('currentPage: ', this.props.paginator.currentPage);
+    console.log('pageSize: ', this.props.pageSize);
+    console.log('============================');
 
     var elements = this.props.children.map(function (element, key) {
       return PagerCalc.canDisplayElement(key, _this3.props.paginator.currentPage, _this3.props.pageSize) ? element : '';
@@ -226,7 +237,9 @@ var Pagination = (_temp = _class = function (_Component) {
   nextLabel: 'next',
   setPageAction: function setPageAction() {},
   setPagesCountAction: function setPagesCountAction() {},
-  paginator: {},
+  paginator: {
+    currentPage: 1
+  },
   onePageHide: false,
   openPageByElementId: 0,
   displayedPages: 5
@@ -241,7 +254,7 @@ Pagination.propTypes = process.env.NODE_ENV !== "production" ? {
   align: PropTypes.string,
   setPageAction: PropTypes.func,
   setPagesCountAction: PropTypes.func,
-  children: PropTypes.array.isRequired,
+  children: PropTypes.any.isRequired,
   onePageHide: PropTypes.bool,
   openPageByElementId: PropTypes.number,
   displayedPages: PropTypes.number

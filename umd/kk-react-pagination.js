@@ -1,5 +1,5 @@
 /*!
- * kk-react-pagination v1.0.0 - https://github.com/KrzysiekF/kk-react-pagination#readme
+ * kk-react-pagination v1.0.1 - https://github.com/KrzysiekF/kk-react-pagination#readme
  * MIT Licensed
  */
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -1273,6 +1273,10 @@ var Pagination = (_temp = _class = function (_Component) {
     var elements = this.props.children;
     var index = false;
 
+    if (!elements) {
+      return false;
+    }
+
     elements.map(function (element, k) {
       var elementID = parseInt(element.props['data-pagination-id'], 10);
 
@@ -1285,6 +1289,8 @@ var Pagination = (_temp = _class = function (_Component) {
 
     if (!index) {
       console.warn('kk-react-pagination: I can\'t find element ID (data-pagination-id)');
+
+      return 1;
     }
 
     return Math.ceil((index + 1) / this.props.pageSize);
@@ -1422,13 +1428,18 @@ var Pagination = (_temp = _class = function (_Component) {
   Pagination.prototype.render = function render() {
     var _this3 = this;
 
-    if (!this.props.paginator) {
+    if (!this.props.paginator || !this.props.children.length) {
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
         null,
         'Loading...'
       );
     }
+
+    console.log('--> this.props.children: ', this.props.children);
+    console.log('currentPage: ', this.props.paginator.currentPage);
+    console.log('pageSize: ', this.props.pageSize);
+    console.log('============================');
 
     var elements = this.props.children.map(function (element, key) {
       return __WEBPACK_IMPORTED_MODULE_3__pagination_calculations__["a" /* default */].canDisplayElement(key, _this3.props.paginator.currentPage, _this3.props.pageSize) ? element : '';
@@ -1452,7 +1463,9 @@ var Pagination = (_temp = _class = function (_Component) {
   nextLabel: 'next',
   setPageAction: function setPageAction() {},
   setPagesCountAction: function setPagesCountAction() {},
-  paginator: {},
+  paginator: {
+    currentPage: 1
+  },
   onePageHide: false,
   openPageByElementId: 0,
   displayedPages: 5
@@ -1466,7 +1479,7 @@ var Pagination = (_temp = _class = function (_Component) {
   align: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string,
   setPageAction: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func,
   setPagesCountAction: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func,
-  children: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.array.isRequired,
+  children: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.any.isRequired,
   onePageHide: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.bool,
   openPageByElementId: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.number,
   displayedPages: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.number
