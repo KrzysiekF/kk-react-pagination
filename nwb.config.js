@@ -5,8 +5,11 @@ module.exports = {
     umd: {
       global: 'KKReactPagination',
       externals: {
-        react: 'React'
-      }
-    }
-  }
-}
+        react: 'React',
+      },
+    },
+  },
+  karma: {
+    // browsers: ['Chrome'],
+  },
+};

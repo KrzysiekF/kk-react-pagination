@@ -2,9 +2,9 @@ import expect from 'expect';
 import React from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { createStore, applyMiddleware } from 'redux';
-import reducers from 'src/pagination/reducers';
+import reducers from '../src/reducers';
 
-import Component from 'src/index';
+import Component from '../src';
 
 describe('Component', () => {
   let node;
@@ -22,7 +22,7 @@ describe('Component', () => {
     const store = createStoreWithMiddleware(
         reducers,
     );
-    
+
     render(<Component name="test" store={store}>
       <div>1</div>
       <div>2</div>
