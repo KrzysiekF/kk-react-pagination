@@ -214,11 +214,6 @@ class Pagination extends Component {
       return <div>Loading...</div>;
     }
 
-    console.log('--> this.props.children: ', this.props.children);
-    console.log('currentPage: ', this.props.paginator.currentPage);
-    console.log('pageSize: ', this.props.pageSize);
-    console.log('============================');
-
     const elements = this.props.children.map(
         (element, key) => (
             PagerCalc.canDisplayElement(key, this.props.paginator.currentPage,

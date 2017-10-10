@@ -210,11 +210,6 @@ var Pagination = (_temp = _class = function (_Component) {
       );
     }
 
-    console.log('--> this.props.children: ', this.props.children);
-    console.log('currentPage: ', this.props.paginator.currentPage);
-    console.log('pageSize: ', this.props.pageSize);
-    console.log('============================');
-
     var elements = this.props.children.map(function (element, key) {
       return PagerCalc.canDisplayElement(key, _this3.props.paginator.currentPage, _this3.props.pageSize) ? element : '';
     });
