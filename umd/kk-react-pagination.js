@@ -1,5 +1,5 @@
 /*!
- * kk-react-pagination v1.0.2 - https://github.com/KrzysiekF/kk-react-pagination#readme
+ * kk-react-pagination v1.0.3 - https://github.com/KrzysiekF/kk-react-pagination#readme
  * MIT Licensed
  */
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -1246,16 +1246,12 @@ var Pagination = (_temp = _class = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, _Component.call(this, props));
 
-    _this.state = {
-      pagesCount: 1
-    };
-
     _this.prevPage = _this.prevPage.bind(_this);
     _this.nextPage = _this.nextPage.bind(_this);
     return _this;
   }
 
-  Pagination.prototype.componentWillMount = function componentWillMount() {
+  Pagination.prototype.componentDidMount = function componentDidMount() {
     if (this.props.startPage) {
       this.changePage(this.props.startPage);
     }
@@ -1361,6 +1357,11 @@ var Pagination = (_temp = _class = function (_Component) {
   Pagination.prototype.renderPaginator = function renderPaginator() {
     var _this2 = this;
 
+    console.log('==> renderPaginator: ', this.props.paginator);
+    console.log('--> this.props.onePageHide: ', this.props.onePageHide);
+    console.log('--> pagesCount: ', this.props.paginator.pagesCount);
+    console.log('========================');
+
     if (this.props.onePageHide && this.props.paginator.pagesCount === 1) {
       return false;
     }
@@ -1459,7 +1460,8 @@ var Pagination = (_temp = _class = function (_Component) {
   setPageAction: function setPageAction() {},
   setPagesCountAction: function setPagesCountAction() {},
   paginator: {
-    currentPage: 1
+    currentPage: 1,
+    pagesCount: 0
   },
   onePageHide: false,
   openPageByElementId: 0,
@@ -1467,7 +1469,10 @@ var Pagination = (_temp = _class = function (_Component) {
 }, _class.propTypes = {
   name: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string.isRequired,
   pageSize: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.number,
-  paginator: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.object,
+  paginator: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.shape({
+    currentPage: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.number,
+    pagesCount: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.number
+  }),
   startPage: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.number,
   prevLabel: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string,
   nextLabel: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string,
@@ -1482,12 +1487,13 @@ var Pagination = (_temp = _class = function (_Component) {
 
 
 var mapStateToProps = function mapStateToProps(state, props) {
-  return {
-    paginator: state.paginations[props.name]
-  };
+  return { paginator: state.paginations[props.name] };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["a" /* connect */])(mapStateToProps, { setPageAction: __WEBPACK_IMPORTED_MODULE_4__pagination_actions__["a" /* setPageAction */], setPagesCountAction: __WEBPACK_IMPORTED_MODULE_4__pagination_actions__["b" /* setPagesCountAction */] })(Pagination));
+/* harmony default export */ __webpack_exports__["default"] = (Object(__WEBPACK_IMPORTED_MODULE_2_react_redux__["a" /* connect */])(mapStateToProps, {
+  setPageAction: __WEBPACK_IMPORTED_MODULE_4__pagination_actions__["a" /* setPageAction */],
+  setPagesCountAction: __WEBPACK_IMPORTED_MODULE_4__pagination_actions__["b" /* setPagesCountAction */]
+})(Pagination));
 
 /***/ }),
 /* 19 */
@@ -3424,27 +3430,27 @@ function verifySubselectors(mapStateToProps, mapDispatchToProps, mergeProps, dis
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var PagerCalc = function () {
-    function PagerCalc() {
-        _classCallCheck(this, PagerCalc);
-    }
+  function PagerCalc() {
+    _classCallCheck(this, PagerCalc);
+  }
 
-    PagerCalc.pagesCount = function pagesCount(elementsCount, pageSize) {
-        return Math.ceil(elementsCount / pageSize);
-    };
+  PagerCalc.pagesCount = function pagesCount(elementsCount, pageSize) {
+    return Math.ceil(elementsCount / pageSize);
+  };
 
-    PagerCalc.calcStartRange = function calcStartRange(currentPage, pageSize) {
-        return (currentPage - 1) * pageSize + 1;
-    };
+  PagerCalc.calcStartRange = function calcStartRange(currentPage, pageSize) {
+    return (currentPage - 1) * pageSize + 1;
+  };
 
-    PagerCalc.calcEndRange = function calcEndRange(currentPage, pageSize) {
-        return currentPage * pageSize;
-    };
+  PagerCalc.calcEndRange = function calcEndRange(currentPage, pageSize) {
+    return currentPage * pageSize;
+  };
 
-    PagerCalc.canDisplayElement = function canDisplayElement(key, currentPage, pageSize) {
-        return key + 1 >= this.calcStartRange(currentPage, pageSize) && key + 1 <= this.calcEndRange(currentPage, pageSize);
-    };
+  PagerCalc.canDisplayElement = function canDisplayElement(key, currentPage, pageSize) {
+    return key + 1 >= this.calcStartRange(currentPage, pageSize) && key + 1 <= this.calcEndRange(currentPage, pageSize);
+  };
 
-    return PagerCalc;
+  return PagerCalc;
 }();
 
 /* harmony default export */ __webpack_exports__["a"] = (PagerCalc);

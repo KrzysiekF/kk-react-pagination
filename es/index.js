@@ -20,16 +20,12 @@ var Pagination = (_temp = _class = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, _Component.call(this, props));
 
-    _this.state = {
-      pagesCount: 1
-    };
-
     _this.prevPage = _this.prevPage.bind(_this);
     _this.nextPage = _this.nextPage.bind(_this);
     return _this;
   }
 
-  Pagination.prototype.componentWillMount = function componentWillMount() {
+  Pagination.prototype.componentDidMount = function componentDidMount() {
     if (this.props.startPage) {
       this.changePage(this.props.startPage);
     }
@@ -135,6 +131,11 @@ var Pagination = (_temp = _class = function (_Component) {
   Pagination.prototype.renderPaginator = function renderPaginator() {
     var _this2 = this;
 
+    console.log('==> renderPaginator: ', this.props.paginator);
+    console.log('--> this.props.onePageHide: ', this.props.onePageHide);
+    console.log('--> pagesCount: ', this.props.paginator.pagesCount);
+    console.log('========================');
+
     if (this.props.onePageHide && this.props.paginator.pagesCount === 1) {
       return false;
     }
@@ -233,7 +234,8 @@ var Pagination = (_temp = _class = function (_Component) {
   setPageAction: function setPageAction() {},
   setPagesCountAction: function setPagesCountAction() {},
   paginator: {
-    currentPage: 1
+    currentPage: 1,
+    pagesCount: 0
   },
   onePageHide: false,
   openPageByElementId: 0,
@@ -242,7 +244,10 @@ var Pagination = (_temp = _class = function (_Component) {
 Pagination.propTypes = process.env.NODE_ENV !== "production" ? {
   name: PropTypes.string.isRequired,
   pageSize: PropTypes.number,
-  paginator: PropTypes.object,
+  paginator: PropTypes.shape({
+    currentPage: PropTypes.number,
+    pagesCount: PropTypes.number
+  }),
   startPage: PropTypes.number,
   prevLabel: PropTypes.string,
   nextLabel: PropTypes.string,
@@ -257,9 +262,10 @@ Pagination.propTypes = process.env.NODE_ENV !== "production" ? {
 
 
 var mapStateToProps = function mapStateToProps(state, props) {
-  return {
-    paginator: state.paginations[props.name]
-  };
+  return { paginator: state.paginations[props.name] };
 };
 
-export default connect(mapStateToProps, { setPageAction: setPageAction, setPagesCountAction: setPagesCountAction })(Pagination);
+export default connect(mapStateToProps, {
+  setPageAction: setPageAction,
+  setPagesCountAction: setPagesCountAction
+})(Pagination);

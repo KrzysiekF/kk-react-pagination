@@ -17,7 +17,6 @@ import './style.css';
 
 class Demo extends Component {
   renderDemoList(elementsNumber = 10) {
-    return false;
     let count = 0;
     const list = [];
 
