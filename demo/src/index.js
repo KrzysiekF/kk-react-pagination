@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
+import axios from 'axios';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import Prism from 'prismjs';
 import 'prismjs/themes/prism-coy.css';
 import 'normalize.css';
 import 'gridlex/docs/gridlex.min.css';
+import AjaxElement from './ajax-element';
 
 import Pagination from '../../src';
 import reducers from './reducers';
@@ -98,15 +100,31 @@ class Demo extends Component {
     return html;
   }
 
+  getPagesRequest(pageSize = 1, page = 1) {
+    const url = `./data-page-${page}.json`;
+    return axios.get(url, {});
+    // return new Promise((resolve, reject) => {
+    //   setTimeout(() => {
+    //     resolve({ data: {
+    //       "page": page,
+    //       "perPage": 3,
+    //       "itemsCount": 9,
+    //       "pagesCount": 3,
+    //       "items": [
+    //         { "name": "Element 1" },
+    //         { "name": "Element 2" },
+    //         { "name": "Element 3" }
+    //       ]
+    //     }});
+    //   }, 5000);
+    // });
+  }
+
   render() {
     Prism.highlightAll();
 
     return (
       <div>
-        <Pagination name="pickupPoints" openPageByElementId={94} onePageHide prevLabel="&laquo;" nextLabel="&raquo;">
-          {this.renderBigDataDemo(1000)}
-        </Pagination>
-
         <div className="content">
           <h1 className="logo">KK React Pagination</h1>
 
@@ -221,13 +239,70 @@ class Demo extends Component {
                   {this.renderDemoList(100)}
                 </Pagination>
               </div>
-              <div className="col">
+              <div className="col-4">
                 <pre>
                   <code className="language-javascript">
                     {`<Pagination
   name="demo4"
   displayedPages={3}
 >(...)</Pagination>`}
+                  </code>
+                </pre>
+              </div>
+            </div>
+
+            <h3>Ajax</h3>
+            <div className="grid">
+              <div className="col-5">
+                <Pagination
+                  name="demo-ajax"
+                  request={this.getPagesRequest}
+                  component={AjaxElement}
+                />
+              </div>
+              <div className="col-7">
+                <pre>
+                  <code className="language-javascript">
+                    {`<Pagination
+  name="demo-ajax"
+  request={this.getPagesRequest}
+  component={ElementComponent}
+/>`}
+                  </code>
+                </pre>
+                <div>getPagesRequest - example</div>
+                <pre>
+                  <code className="language-javascript">
+                    {`getPagesRequest(pageSize = 5, page = 1) {
+  const url = \`http://YOUR-API.COM/?pageSize=&{pageSize}&page=&{page}\`;
+  return axios.get(url);
+}`}
+                  </code>
+                </pre>
+                <div>required response structure</div>
+                <pre>
+                  <code className="language-javascript">
+                    {`{
+  "page": 1,
+  "perPage": 5,
+  "itemsCount": 15,
+  "pagesCount": 3,
+  "items": [{}]
+}`}
+                  </code>
+                </pre>
+                <div>ElementComponent - example</div>
+                <pre>
+                  <code className="language-javascript">
+                    {`import React, { Component } from 'react';
+
+class ElementComponent extends Component {
+  render() {
+    return (<div>{this.props.name}</div>);
+  }
+}
+
+export default ElementComponent;`}
                   </code>
                 </pre>
               </div>
@@ -299,13 +374,39 @@ class Demo extends Component {
                     How many page numbers should be visible while navigating.
                   </td>
                 </tr>
+                <tr>
+                  <td><code>request</code></td>
+                  <td><code>Function</code> (<code>Promice</code>)</td>
+                  <td>
+                    The function that sends a request to the server and returns Promise.<br />
+                    The response from the server should be as follows:
+                    <pre>
+                      <code>
+                        {`{
+  "page": 1, // number
+  "perPage": 5, // number
+  "itemsCount": 15, // number
+  "pagesCount": 3, // number
+  "items": [{}] // array of objects
+}`}
+                      </code>
+                    </pre>
+                  </td>
+                </tr>
+                <tr>
+                  <td><code>component</code></td>
+                  <td><code>Function</code> (<code>ReactJS Component</code>)</td>
+                  <td>
+                    This component will be used to render a single line from the list. Data provided by the server will be injected into it as properties.
+                  </td>
+                </tr>
               </tbody>
             </table>
           </section>
 
           <footer>
             <a href="http://krzysztof-furtak.pl" target="_blank">Krzysztof
-                Furtak</a> &copy; copyright 2017
+                Furtak</a> &copy; copyright 2017-2018
             </footer>
         </div>
       </div>);

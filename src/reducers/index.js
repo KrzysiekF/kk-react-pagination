@@ -1,8 +1,8 @@
-import { combineReducers } from 'redux'
-import Pagination from '../pagination/reducers'
+import { combineReducers } from 'redux';
+import Pagination from '../pagination/reducers';
 
 const rootReducer = combineReducers({
-    paginations: Pagination
-})
+  paginations: Pagination,
+});
 
-export default rootReducer
+export default rootReducer;

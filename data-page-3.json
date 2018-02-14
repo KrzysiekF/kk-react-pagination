@@ -1,0 +1,11 @@
+{
+  "page": 3,
+  "perPage": 3,
+  "itemsCount": 9,
+  "pagesCount": 3,
+  "items": [
+    { "name": "Element 7" },
+    { "name": "Element 8" },
+    { "name": "Element 9" }
+  ]
+}

@@ -1,47 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { size } from 'lodash';
 import PagerCalc from './pagination/calculations';
-import { setPageAction, setPagesCountAction } from './pagination/actions';
+import { setPageAction, setPagesCountAction, setDataAction } from './pagination/actions';
 
 class Pagination extends Component {
-  static defaultProps = {
-    name: 'pagination',
-    pageSize: 5,
-    startPage: 1,
-    align: 'center',
-    prevLabel: 'prev',
-    nextLabel: 'next',
-    setPageAction: () => {},
-    setPagesCountAction: () => {},
-    paginator: {
-      currentPage: 1,
-      pagesCount: 0,
-    },
-    onePageHide: false,
-    openPageByElementId: 0,
-    displayedPages: 5,
-  };
-
-  static propTypes = {
-    name: PropTypes.string.isRequired,
-    pageSize: PropTypes.number,
-    paginator: PropTypes.shape({
-      currentPage: PropTypes.number,
-      pagesCount: PropTypes.number,
-    }),
-    startPage: PropTypes.number,
-    prevLabel: PropTypes.string,
-    nextLabel: PropTypes.string,
-    align: PropTypes.string,
-    setPageAction: PropTypes.func,
-    setPagesCountAction: PropTypes.func,
-    children: PropTypes.any.isRequired,
-    onePageHide: PropTypes.bool,
-    openPageByElementId: PropTypes.number,
-    displayedPages: PropTypes.number,
-  };
-
   constructor(props) {
     super(props);
 
@@ -50,6 +14,11 @@ class Pagination extends Component {
   }
 
   componentDidMount() {
+    if (this.props.request) {
+      this.getPageRequest();
+      return;
+    }
+
     if (this.props.startPage) {
       this.changePage(this.props.startPage);
     }
@@ -62,6 +31,24 @@ class Pagination extends Component {
     this.props.setPagesCountAction(
       PagerCalc.pagesCount(this.props.children.length, this.props.pageSize),
       this.props.name);
+  }
+
+  getPageRequest(page = 1) {
+    if (this.props.paginator.data && this.props.paginator.data[`page-${page}`]) {
+      this.props.setPageAction(page, this.props.name);
+      return;
+    }
+
+    const pageSize = this.props.pageSize ? this.props.pageSize : 1;
+    const request = this.props.request(pageSize, page);
+
+    request
+    .then((response) => {
+      this.props.setPageAction(response.data.page, this.props.name);
+      this.props.setPagesCountAction(response.data.pagesCount, this.props.name);
+      this.props.setDataAction(response.data.items, response.data.page, this.props.name);
+    })
+    .catch((error) => { console.error(error); });
   }
 
   findPageById() {
@@ -103,6 +90,10 @@ class Pagination extends Component {
   }
 
   changePage(page) {
+    if (this.props.request) {
+      this.getPageRequest(page);
+      return;
+    }
     this.props.setPageAction(page, this.props.name);
   }
 
@@ -153,11 +144,6 @@ class Pagination extends Component {
   }
 
   renderPaginator() {
-    console.log('==> renderPaginator: ', this.props.paginator);
-    console.log('--> this.props.onePageHide: ', this.props.onePageHide);
-    console.log('--> pagesCount: ', this.props.paginator.pagesCount);
-    console.log('========================');
-
     if (this.props.onePageHide && this.props.paginator.pagesCount === 1) {
       return false;
     }
@@ -214,28 +200,84 @@ class Pagination extends Component {
   }
 
   render() {
-    if (!this.props.paginator || !this.props.children.length) {
+    if (!this.props.paginator) {
       return <div>Loading...</div>;
     }
 
-    const elements = this.props.children.map(
+    if (!size(this.props.children) && (!size(this.props.paginator.data) || !size(this.props.paginator.data[`page-${this.props.paginator.currentPage}`]))) {
+      return <div>Loading...</div>;
+    }
+
+    let elementId = 0;
+
+    const elements = this.props.children ? this.props.children.map(
       (element, key) => (
         PagerCalc.canDisplayElement(key, this.props.paginator.currentPage,
           this.props.pageSize) ? element : ''),
-    );
+    ) : '';
+
+    const requestElements = this.props.paginator.data ?
+      this.props.paginator.data[`page-${this.props.paginator.currentPage}`]
+        .map(
+          (data) => {
+            elementId += 1;
+            const AjaxComponent = this.props.component;
+            return (<AjaxComponent key={`${this.props.name}-${elementId}`} {...data} />);
+          },
+        ) :
+        '';
 
     return (
       <div>
-        {elements}
+        {!this.props.request ? elements : requestElements}
         {this.renderPaginator()}
       </div>
     );
   }
 }
 
+Pagination.defaultProps = {
+  name: 'pagination',
+  pageSize: 5,
+  startPage: 1,
+  align: 'center',
+  prevLabel: 'prev',
+  nextLabel: 'next',
+  children: [],
+  setPageAction: () => {},
+  setPagesCountAction: () => {},
+  paginator: {
+    currentPage: 1,
+    pagesCount: 0,
+  },
+  onePageHide: false,
+  openPageByElementId: 0,
+  displayedPages: 5,
+};
+
+Pagination.propTypes = {
+  name: PropTypes.string.isRequired,
+  pageSize: PropTypes.number,
+  paginator: PropTypes.shape({
+    currentPage: PropTypes.number,
+    pagesCount: PropTypes.number,
+  }),
+  startPage: PropTypes.number,
+  prevLabel: PropTypes.string,
+  nextLabel: PropTypes.string,
+  align: PropTypes.string,
+  setPageAction: PropTypes.func,
+  setPagesCountAction: PropTypes.func,
+  children: PropTypes.any,
+  onePageHide: PropTypes.bool,
+  openPageByElementId: PropTypes.number,
+  displayedPages: PropTypes.number,
+};
+
 const mapStateToProps = (state, props) => ({ paginator: state.paginations[props.name] });
 
 export default connect(mapStateToProps, {
   setPageAction,
   setPagesCountAction,
+  setDataAction,
 })(Pagination);
