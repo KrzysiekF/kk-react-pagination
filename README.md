@@ -30,6 +30,8 @@ Examples
 --------
 `<pagination name="demo"> (content) </pagination>`
 
+[(More examples you can find here)](https://krzysiekf.github.io/kk-react-pagination/)
+
 Options
 -------
 
@@ -44,3 +46,5 @@ Options
 | `onePageHide` | `false ` (`bool`)  | Hide pagination when is only one page. |
 | `openPageByElementId` | `0` (`number`)  | Must be unique. |
 | `displayedPages` | `5` (`number`)  | How many page numbers should be visible while navigating. |
+| `request` | `Function` (`Promice`)  | The function that sends a request to the server and returns Promise. |
+| `component` | `Function` (`ReactJS Component`)  | This component will be used to render a single line from the list. Data provided by the server will be injected into it as properties. |
