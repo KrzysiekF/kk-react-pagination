@@ -18,14 +18,34 @@ import '../../src/assets/templates/simple.css';
 import './style.css';
 
 class Demo extends Component {
+  getPagesRequest(pageSize = 1, page = 1) {
+    const url = `./data-page-${page}.json`;
+    return axios.get(url, {});
+    // return new Promise((resolve, reject) => {
+    //   setTimeout(() => {
+    //     resolve({ data: {
+    //       "page": page,
+    //       "perPage": 3,
+    //       "itemsCount": 9,
+    //       "pagesCount": 3,
+    //       "items": [
+    //         { "name": "Element 1" },
+    //         { "name": "Element 2" },
+    //         { "name": "Element 3" }
+    //       ]
+    //     }});
+    //   }, 5000);
+    // });
+  }
+
   renderDemoList(elementsNumber = 10) {
     let count = 0;
     const list = [];
 
     do {
       list.push(<div
-        className="list-element" data-pagination-id={count + 1}
-        key={count + 1}
+          className="list-element" data-pagination-id={count + 1}
+          key={count + 1}
       ><span>{count + 1}.</span> Lorem ipsum
         dolor...</div>);
       count++;
@@ -65,59 +85,39 @@ class Demo extends Component {
       }
 
       return (
-        <div
-          className="pickup-points-list-element"
-          data-pagination-id={pickupPoint.id}
-          key={pickupPoint.id}
-        >
-          <label
-            data-point-id={pickupPoint.id}
-            htmlFor={`nf-marker-pickuppoint-id-${pickupPoint.id}`}
+          <div
+              className="pickup-points-list-element"
+              data-pagination-id={pickupPoint.id}
+              key={pickupPoint.id}
           >
-            <input
-              type="radio"
-              name="point_primary"
-              id={`nf-marker-pickuppoint-id-${pickupPoint.id}`}
-              onChange={() => {}}
-              checked={
+            <label
+                data-point-id={pickupPoint.id}
+                htmlFor={`nf-marker-pickuppoint-id-${pickupPoint.id}`}
+            >
+              <input
+                  type="radio"
+                  name="point_primary"
+                  id={`nf-marker-pickuppoint-id-${pickupPoint.id}`}
+                  onChange={() => {}}
+                  checked={
                     selectedPickupPoint &&
                     selectedPickupPoint.id === pickupPoint.id
                   }
-            />
-            <div className={`point-${deliveryType.logisticType}`}>
-              <div>
-                {pickupPoint.id} - <strong>{pickupPoint.symbol}</strong>
+              />
+              <div className={`point-${deliveryType.logisticType}`}>
+                <div>
+                  {pickupPoint.id} - <strong>{pickupPoint.symbol}</strong>
+                </div>
+                <div>
+                  {`${pickupPoint.street}, ${pickupPoint.postCode} ${pickupPoint.city}`}
+                </div>
               </div>
-              <div>
-                {`${pickupPoint.street}, ${pickupPoint.postCode} ${pickupPoint.city}`}
-              </div>
-            </div>
-          </label>
-        </div>
+            </label>
+          </div>
       );
     });
 
     return html;
-  }
-
-  getPagesRequest(pageSize = 1, page = 1) {
-    const url = `./data-page-${page}.json`;
-    return axios.get(url, {});
-    // return new Promise((resolve, reject) => {
-    //   setTimeout(() => {
-    //     resolve({ data: {
-    //       "page": page,
-    //       "perPage": 3,
-    //       "itemsCount": 9,
-    //       "pagesCount": 3,
-    //       "items": [
-    //         { "name": "Element 1" },
-    //         { "name": "Element 2" },
-    //         { "name": "Element 3" }
-    //       ]
-    //     }});
-    //   }, 5000);
-    // });
   }
 
   render() {
@@ -258,6 +258,7 @@ class Demo extends Component {
                   name="demo-ajax"
                   request={this.getPagesRequest}
                   component={AjaxElement}
+                  elementListClass="test-class"
                 />
               </div>
               <div className="col-7">
@@ -398,6 +399,13 @@ export default ElementComponent;`}
                   <td><code>Function</code> (<code>ReactJS Component</code>)</td>
                   <td>
                     This component will be used to render a single line from the list. Data provided by the server will be injected into it as properties.
+                  </td>
+                </tr>
+                <tr>
+                  <td><code>elementListClass</code></td>
+                  <td><code>''</code> (<code>string</code>)</td>
+                  <td>
+                    Additional class on the tag containing the list of elements.
                   </td>
                 </tr>
               </tbody>

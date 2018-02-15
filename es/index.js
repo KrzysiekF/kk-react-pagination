@@ -21,6 +21,11 @@ var Pagination = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, _Component.call(this, props));
 
+    _this.state = {
+      pending: false
+    };
+
+
     _this.prevPage = _this.prevPage.bind(_this);
     _this.nextPage = _this.nextPage.bind(_this);
     return _this;
@@ -49,7 +54,7 @@ var Pagination = function (_Component) {
 
     var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
 
-    if (this.props.paginator.data && this.props.paginator.data['page-' + page]) {
+    if (this.props.pagination.data && this.props.pagination.data['page-' + page]) {
       this.props.setPageAction(page, this.props.name);
       return;
     }
@@ -57,11 +62,18 @@ var Pagination = function (_Component) {
     var pageSize = this.props.pageSize ? this.props.pageSize : 1;
     var request = this.props.request(pageSize, page);
 
+    if (!request) {
+      return;
+    }
+
+    this.setState({ pending: true });
     request.then(function (response) {
+      _this2.setState({ pending: false });
       _this2.props.setPageAction(response.data.page, _this2.props.name);
       _this2.props.setPagesCountAction(response.data.pagesCount, _this2.props.name);
       _this2.props.setDataAction(response.data.items, response.data.page, _this2.props.name);
     }).catch(function (error) {
+      _this2.setState({ pending: false });
       console.error(error);
     });
   };
@@ -95,12 +107,12 @@ var Pagination = function (_Component) {
   };
 
   Pagination.prototype.prevPage = function prevPage() {
-    var prev = this.props.paginator.currentPage - 1;
+    var prev = this.props.pagination.currentPage - 1;
     this.changePage(prev);
   };
 
   Pagination.prototype.nextPage = function nextPage() {
-    var next = this.props.paginator.currentPage + 1;
+    var next = this.props.pagination.currentPage + 1;
     this.changePage(next);
   };
 
@@ -114,7 +126,7 @@ var Pagination = function (_Component) {
 
   Pagination.prototype.calculateRanges = function calculateRanges() {
     var displayedPages = this.props.displayedPages;
-    var currentPage = this.props.paginator.currentPage;
+    var currentPage = this.props.pagination.currentPage;
 
     var range = Math.floor(displayedPages / 2);
     var minPage = currentPage - range;
@@ -125,7 +137,7 @@ var Pagination = function (_Component) {
 
   Pagination.prototype.shouldShowPage = function shouldShowPage(page) {
     var shouldShow = false;
-    var pagesCount = this.props.paginator.pagesCount;
+    var pagesCount = this.props.pagination.pagesCount;
 
     var range = this.calculateRanges();
 
@@ -143,7 +155,7 @@ var Pagination = function (_Component) {
 
   Pagination.prototype.shouldAddSpace = function shouldAddSpace(page) {
     var shouldShow = false;
-    var pagesCount = this.props.paginator.pagesCount;
+    var pagesCount = this.props.pagination.pagesCount;
 
     var range = this.calculateRanges();
 
@@ -160,10 +172,10 @@ var Pagination = function (_Component) {
     return shouldShow;
   };
 
-  Pagination.prototype.renderPaginator = function renderPaginator() {
+  Pagination.prototype.renderPagination = function renderPagination() {
     var _this3 = this;
 
-    if (this.props.onePageHide && this.props.paginator.pagesCount === 1) {
+    if (this.props.onePageHide && this.props.pagination.pagesCount === 1) {
       return false;
     }
 
@@ -174,17 +186,19 @@ var Pagination = function (_Component) {
 
       var _loop = function _loop(i) {
         if (_this3.shouldShowPage(i)) {
-          buttonsArr.push(React.createElement(
+          var button = React.createElement(
             'button',
             {
-              className: '' + (i === _this3.props.paginator.currentPage ? 'active' : ''),
+              className: '' + (i === _this3.props.pagination.currentPage ? 'active' : ''),
               key: i,
               onClick: function onClick() {
                 _this3.changePage(i);
               }
             },
             i
-          ));
+          );
+
+          buttonsArr.push(button);
         }
 
         if (_this3.shouldAddSpace(i)) {
@@ -196,7 +210,7 @@ var Pagination = function (_Component) {
         }
       };
 
-      for (var i = 1; i <= _this3.props.paginator.pagesCount; i += 1) {
+      for (var i = 1; i <= _this3.props.pagination.pagesCount; i += 1) {
         _loop(i);
       }
 
@@ -211,7 +225,7 @@ var Pagination = function (_Component) {
         'button',
         {
           onClick: this.prevPage,
-          disabled: this.props.paginator.currentPage <= 1
+          disabled: this.props.pagination.currentPage <= 1
         },
         this.props.prevLabel
       ),
@@ -220,7 +234,7 @@ var Pagination = function (_Component) {
         'button',
         {
           onClick: this.nextPage,
-          disabled: this.props.paginator.currentPage >= this.props.paginator.pagesCount
+          disabled: this.props.pagination.currentPage >= this.props.pagination.pagesCount
         },
         this.props.nextLabel
       )
@@ -228,41 +242,56 @@ var Pagination = function (_Component) {
   };
 
   Pagination.prototype.render = function render() {
-    var _this4 = this;
-
-    if (!this.props.paginator) {
-      return React.createElement(
-        'div',
-        null,
-        'Loading...'
-      );
-    }
-
-    if (!size(this.props.children) && (!size(this.props.paginator.data) || !size(this.props.paginator.data['page-' + this.props.paginator.currentPage]))) {
-      return React.createElement(
-        'div',
-        null,
-        'Loading...'
-      );
-    }
-
     var elementId = 0;
+    var _props = this.props,
+        _props$pagination = _props.pagination,
+        data = _props$pagination.data,
+        currentPage = _props$pagination.currentPage,
+        pagination = _props.pagination,
+        children = _props.children,
+        pageSize = _props.pageSize,
+        component = _props.component,
+        name = _props.name,
+        request = _props.request,
+        elementListClass = _props.elementListClass;
+    var pending = this.state.pending;
 
-    var elements = this.props.children ? this.props.children.map(function (element, key) {
-      return PagerCalc.canDisplayElement(key, _this4.props.paginator.currentPage, _this4.props.pageSize) ? element : '';
+
+    if (!pagination || pending) {
+      return React.createElement(
+        'div',
+        null,
+        'Loading...'
+      );
+    }
+
+    if (!size(children) && (!size(data) || !size(data['page-' + currentPage]))) {
+      return React.createElement(
+        'div',
+        null,
+        'Loading...'
+      );
+    }
+
+    var elements = size(children) ? children.map(function (element, key) {
+      return PagerCalc.canDisplayElement(key, currentPage, pageSize) ? element : '';
     }) : '';
 
-    var requestElements = this.props.paginator.data ? this.props.paginator.data['page-' + this.props.paginator.currentPage].map(function (data) {
+    var requestElements = size(data) ? data['page-' + currentPage].map(function (element) {
       elementId += 1;
-      var AjaxComponent = _this4.props.component;
-      return React.createElement(AjaxComponent, _extends({ key: _this4.props.name + '-' + elementId }, data));
+      var AjaxComponent = component;
+      return React.createElement(AjaxComponent, _extends({ key: name + '-' + elementId }, element));
     }) : '';
 
     return React.createElement(
       'div',
-      null,
-      !this.props.request ? elements : requestElements,
-      this.renderPaginator()
+      { className: 'kk-pagination-box' },
+      React.createElement(
+        'div',
+        { className: 'kk-pagination-list ' + elementListClass },
+        !request ? elements : requestElements
+      ),
+      this.renderPagination()
     );
   };
 
@@ -270,7 +299,6 @@ var Pagination = function (_Component) {
 }(Component);
 
 Pagination.defaultProps = {
-  name: 'pagination',
   pageSize: 5,
   startPage: 1,
   align: 'center',
@@ -279,21 +307,27 @@ Pagination.defaultProps = {
   children: [],
   setPageAction: function setPageAction() {},
   setPagesCountAction: function setPagesCountAction() {},
-  paginator: {
+  setDataAction: function setDataAction() {},
+  pagination: {
     currentPage: 1,
-    pagesCount: 0
+    pagesCount: 0,
+    data: {}
   },
   onePageHide: false,
   openPageByElementId: 0,
-  displayedPages: 5
+  displayedPages: 5,
+  request: null,
+  component: null,
+  elementListClass: ''
 };
 
 Pagination.propTypes = process.env.NODE_ENV !== "production" ? {
   name: PropTypes.string.isRequired,
   pageSize: PropTypes.number,
-  paginator: PropTypes.shape({
+  pagination: PropTypes.shape({
     currentPage: PropTypes.number,
-    pagesCount: PropTypes.number
+    pagesCount: PropTypes.number,
+    data: PropTypes.object
   }),
   startPage: PropTypes.number,
   prevLabel: PropTypes.string,
@@ -301,14 +335,18 @@ Pagination.propTypes = process.env.NODE_ENV !== "production" ? {
   align: PropTypes.string,
   setPageAction: PropTypes.func,
   setPagesCountAction: PropTypes.func,
+  setDataAction: PropTypes.func,
   children: PropTypes.any,
   onePageHide: PropTypes.bool,
   openPageByElementId: PropTypes.number,
-  displayedPages: PropTypes.number
+  displayedPages: PropTypes.number,
+  request: PropTypes.func,
+  component: PropTypes.func,
+  elementListClass: PropTypes.string
 } : {};
 
 var mapStateToProps = function mapStateToProps(state, props) {
-  return { paginator: state.paginations[props.name] };
+  return { pagination: state.paginations[props.name] };
 };
 
 export default connect(mapStateToProps, {
