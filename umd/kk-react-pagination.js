@@ -1,5 +1,5 @@
 /*!
- * kk-react-pagination v1.1.0 - https://github.com/KrzysiekF/kk-react-pagination#readme
+ * kk-react-pagination v1.1.1 - https://github.com/KrzysiekF/kk-react-pagination#readme
  * MIT Licensed
  */
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -1497,7 +1497,7 @@ var Pagination = function (_Component) {
     var requestElements = Object(__WEBPACK_IMPORTED_MODULE_3_lodash__["size"])(data) ? data['page-' + currentPage].map(function (element) {
       elementId += 1;
       var AjaxComponent = component;
-      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(AjaxComponent, _extends({ key: name + '-' + elementId }, element));
+      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(AjaxComponent, _extends({ key: name + '-' + elementId }, element, { firstElement: currentPage === 1 && elementId === 1 }));
     }) : '';
 
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(

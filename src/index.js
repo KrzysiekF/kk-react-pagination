@@ -246,7 +246,7 @@ class Pagination extends Component {
         .map((element) => {
           elementId += 1;
           const AjaxComponent = component;
-          return (<AjaxComponent key={`${name}-${elementId}`} {...element} />);
+          return (<AjaxComponent key={`${name}-${elementId}`} {...element} firstElement={currentPage === 1 && elementId === 1} />);
         }) : '';
 
     return (

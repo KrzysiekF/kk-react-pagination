@@ -280,7 +280,7 @@ var Pagination = function (_Component) {
     var requestElements = size(data) ? data['page-' + currentPage].map(function (element) {
       elementId += 1;
       var AjaxComponent = component;
-      return React.createElement(AjaxComponent, _extends({ key: name + '-' + elementId }, element));
+      return React.createElement(AjaxComponent, _extends({ key: name + '-' + elementId }, element, { firstElement: currentPage === 1 && elementId === 1 }));
     }) : '';
 
     return React.createElement(
