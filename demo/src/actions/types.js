@@ -1,0 +1,1 @@
+export const SET_VALUE = 'set_value';

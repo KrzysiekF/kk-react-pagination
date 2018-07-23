@@ -19,11 +19,11 @@ class Pagination extends Component {
 
   componentDidMount() {
     if (this.props.request) {
-      this.getPageRequest();
+      this.getPageRequest(this.props.pagination.currentPage);
       return;
     }
 
-    if (this.props.startPage && this.props.pagination.currentPage === 1) {
+    if (this.props.startPage) {
       this.changePage(this.props.startPage);
     }
 

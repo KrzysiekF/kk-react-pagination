@@ -1,5 +1,5 @@
 /*!
- * kk-react-pagination v1.1.2 - https://github.com/KrzysiekF/kk-react-pagination#readme
+ * kk-react-pagination v1.1.4 - https://github.com/KrzysiekF/kk-react-pagination#readme
  * MIT Licensed
  */
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -1081,11 +1081,11 @@ var Pagination = function (_Component) {
 
   Pagination.prototype.componentDidMount = function componentDidMount() {
     if (this.props.request) {
-      this.getPageRequest();
+      this.getPageRequest(this.props.pagination.currentPage);
       return;
     }
 
-    if (this.props.startPage && this.props.pagination.currentPage === 1) {
+    if (this.props.startPage) {
       this.changePage(this.props.startPage);
     }
 
