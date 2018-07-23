@@ -23,7 +23,7 @@ class Pagination extends Component {
       return;
     }
 
-    if (this.props.startPage) {
+    if (this.props.startPage && this.props.pagination.currentPage === 1) {
       this.changePage(this.props.startPage);
     }
 
@@ -127,7 +127,7 @@ class Pagination extends Component {
     const range = this.calculateRanges();
 
     if (page === 1 || (page >= range.minPage && page <= range.maxPage) ||
-        page === pagesCount) {
+      page === pagesCount) {
       shouldShow = true;
     }
 
@@ -172,8 +172,8 @@ class Pagination extends Component {
           const button = (
             <button
               className={`${i === this.props.pagination.currentPage
-                  ? 'active'
-                  : ''}`}
+                ? 'active'
+                : ''}`}
               key={i}
               onClick={() => { this.changePage(i); }}
             >
@@ -206,7 +206,7 @@ class Pagination extends Component {
         <button
           onClick={this.nextPage}
           disabled={this.props.pagination.currentPage >=
-              this.props.pagination.pagesCount}
+            this.props.pagination.pagesCount}
         >{this.props.nextLabel}
         </button>
       </div>
@@ -267,9 +267,9 @@ Pagination.defaultProps = {
   prevLabel: 'prev',
   nextLabel: 'next',
   children: [],
-  setPageAction: () => {},
-  setPagesCountAction: () => {},
-  setDataAction: () => {},
+  setPageAction: () => { },
+  setPagesCountAction: () => { },
+  setDataAction: () => { },
   pagination: {
     currentPage: 1,
     pagesCount: 0,

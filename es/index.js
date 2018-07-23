@@ -37,7 +37,7 @@ var Pagination = function (_Component) {
       return;
     }
 
-    if (this.props.startPage) {
+    if (this.props.startPage && this.props.pagination.currentPage === 1) {
       this.changePage(this.props.startPage);
     }
 
