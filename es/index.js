@@ -72,6 +72,7 @@ var Pagination = function (_Component) {
       _this2.props.setPageAction(response.data.page, _this2.props.name);
       _this2.props.setPagesCountAction(response.data.pagesCount, _this2.props.name);
       _this2.props.setDataAction(response.data.items, response.data.page, _this2.props.name);
+      _this2.props.afterPageChange(response);
     }).catch(function (error) {
       _this2.setState({ pending: false });
       console.error(error);
@@ -219,7 +220,7 @@ var Pagination = function (_Component) {
 
     return React.createElement(
       'div',
-      { className: 'kk-pagination kk-' + (this.props.align ? this.props.align : '')
+      { className: '\n        kk-pagination \n        kk-' + (this.props.align ? this.props.align : '') + '\n        ' + this.props.customClass + '\n        '
       },
       React.createElement(
         'button',
@@ -308,6 +309,7 @@ Pagination.defaultProps = {
   setPageAction: function setPageAction() {},
   setPagesCountAction: function setPagesCountAction() {},
   setDataAction: function setDataAction() {},
+  afterPageChange: function afterPageChange() {},
   pagination: {
     currentPage: 1,
     pagesCount: 0,
@@ -318,7 +320,8 @@ Pagination.defaultProps = {
   displayedPages: 5,
   request: null,
   component: null,
-  elementListClass: ''
+  elementListClass: '',
+  customClass: ''
 };
 
 Pagination.propTypes = process.env.NODE_ENV !== "production" ? {
@@ -336,13 +339,15 @@ Pagination.propTypes = process.env.NODE_ENV !== "production" ? {
   setPageAction: PropTypes.func,
   setPagesCountAction: PropTypes.func,
   setDataAction: PropTypes.func,
+  afterPageChange: PropTypes.func,
   children: PropTypes.any,
   onePageHide: PropTypes.bool,
   openPageByElementId: PropTypes.number,
   displayedPages: PropTypes.number,
   request: PropTypes.func,
   component: PropTypes.func,
-  elementListClass: PropTypes.string
+  elementListClass: PropTypes.string,
+  customClass: PropTypes.string
 } : {};
 
 var mapStateToProps = function mapStateToProps(state, props) {

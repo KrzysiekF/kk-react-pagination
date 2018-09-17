@@ -58,6 +58,7 @@ class Pagination extends Component {
         this.props.setPageAction(response.data.page, this.props.name);
         this.props.setPagesCountAction(response.data.pagesCount, this.props.name);
         this.props.setDataAction(response.data.items, response.data.page, this.props.name);
+        this.props.afterPageChange(response);
       })
       .catch((error) => {
         this.setState({ pending: false });
@@ -193,9 +194,11 @@ class Pagination extends Component {
     };
 
     return (
-      <div className={`kk-pagination kk-${this.props.align
-        ? this.props.align
-        : ''}`}
+      <div className={`
+        kk-pagination 
+        kk-${this.props.align ? this.props.align : ''}
+        ${this.props.customClass}
+        `}
       >
         <button
           onClick={this.prevPage}
@@ -270,6 +273,7 @@ Pagination.defaultProps = {
   setPageAction: () => { },
   setPagesCountAction: () => { },
   setDataAction: () => { },
+  afterPageChange: () => { },
   pagination: {
     currentPage: 1,
     pagesCount: 0,
@@ -281,6 +285,7 @@ Pagination.defaultProps = {
   request: null,
   component: null,
   elementListClass: '',
+  customClass: '',
 };
 
 Pagination.propTypes = {
@@ -298,6 +303,7 @@ Pagination.propTypes = {
   setPageAction: PropTypes.func,
   setPagesCountAction: PropTypes.func,
   setDataAction: PropTypes.func,
+  afterPageChange: PropTypes.func,
   children: PropTypes.any,
   onePageHide: PropTypes.bool,
   openPageByElementId: PropTypes.number,
@@ -305,6 +311,7 @@ Pagination.propTypes = {
   request: PropTypes.func,
   component: PropTypes.func,
   elementListClass: PropTypes.string,
+  customClass: PropTypes.string,
 };
 
 const mapStateToProps = (state, props) => ({ pagination: state.paginations[props.name] });

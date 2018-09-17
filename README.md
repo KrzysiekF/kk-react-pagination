@@ -49,3 +49,5 @@ Options
 | `request` | `Function` (`Promice`)  | The function that sends a request to the server and returns Promise. |
 | `component` | `Function` (`ReactJS Component`)  | This component will be used to render a single line from the list. Data provided by the server will be injected into it as properties. |
 | `elementListClass` | `''` (`string`)  | Additional class on the tag containing the list of elements. |
+| `customClass` | `''` (`string`)  | Additional class on the tag containing the pagination. |
+| `afterPageChange` | `Function`  | Callback function after page change. |

@@ -1120,6 +1120,7 @@ var Pagination = function (_Component) {
       _this2.props.setPageAction(response.data.page, _this2.props.name);
       _this2.props.setPagesCountAction(response.data.pagesCount, _this2.props.name);
       _this2.props.setDataAction(response.data.items, response.data.page, _this2.props.name);
+      _this2.props.afterPageChange(response);
     }).catch(function (error) {
       _this2.setState({ pending: false });
       console.error(error);
@@ -1267,7 +1268,7 @@ var Pagination = function (_Component) {
 
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'div',
-      { className: 'kk-pagination kk-' + (this.props.align ? this.props.align : '')
+      { className: '\n        kk-pagination \n        kk-' + (this.props.align ? this.props.align : '') + '\n        ' + this.props.customClass + '\n        '
       },
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'button',
@@ -1356,6 +1357,7 @@ Pagination.defaultProps = {
   setPageAction: function setPageAction() {},
   setPagesCountAction: function setPagesCountAction() {},
   setDataAction: function setDataAction() {},
+  afterPageChange: function afterPageChange() {},
   pagination: {
     currentPage: 1,
     pagesCount: 0,
@@ -1366,7 +1368,8 @@ Pagination.defaultProps = {
   displayedPages: 5,
   request: null,
   component: null,
-  elementListClass: ''
+  elementListClass: '',
+  customClass: ''
 };
 
 Pagination.propTypes = {
@@ -1384,13 +1387,15 @@ Pagination.propTypes = {
   setPageAction: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func,
   setPagesCountAction: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func,
   setDataAction: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func,
+  afterPageChange: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func,
   children: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.any,
   onePageHide: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.bool,
   openPageByElementId: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.number,
   displayedPages: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.number,
   request: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func,
   component: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func,
-  elementListClass: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string
+  elementListClass: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string,
+  customClass: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string
 };
 
 var mapStateToProps = function mapStateToProps(state, props) {
