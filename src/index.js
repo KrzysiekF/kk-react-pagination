@@ -51,6 +51,7 @@ class Pagination extends Component {
       return;
     }
 
+    this.props.beforeRequest();
     this.setState({ pending: true });
     request
       .then((response) => {
@@ -58,7 +59,7 @@ class Pagination extends Component {
         this.props.setPageAction(response.data.page, this.props.name);
         this.props.setPagesCountAction(response.data.pagesCount, this.props.name);
         this.props.setDataAction(response.data.items, response.data.page, this.props.name);
-        this.props.afterPageChange(response);
+        this.props.afterRequest(response);
       })
       .catch((error) => {
         this.setState({ pending: false });
@@ -110,6 +111,7 @@ class Pagination extends Component {
       return;
     }
     this.props.setPageAction(page, this.props.name);
+    this.props.afterPageChange(this.props.pagination[`page-${page}`]);
   }
 
   calculateRanges() {
@@ -274,6 +276,8 @@ Pagination.defaultProps = {
   setPagesCountAction: () => { },
   setDataAction: () => { },
   afterPageChange: () => { },
+  afterRequest: () => { },
+  beforeRequest: () => { },
   pagination: {
     currentPage: 1,
     pagesCount: 0,
@@ -304,6 +308,8 @@ Pagination.propTypes = {
   setPagesCountAction: PropTypes.func,
   setDataAction: PropTypes.func,
   afterPageChange: PropTypes.func,
+  afterRequest: PropTypes.func,
+  beforeRequest: PropTypes.func,
   children: PropTypes.any,
   onePageHide: PropTypes.bool,
   openPageByElementId: PropTypes.number,

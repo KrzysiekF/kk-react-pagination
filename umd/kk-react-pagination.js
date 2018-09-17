@@ -1,5 +1,5 @@
 /*!
- * kk-react-pagination v1.1.4 - https://github.com/KrzysiekF/kk-react-pagination#readme
+ * kk-react-pagination v1.1.6 - https://github.com/KrzysiekF/kk-react-pagination#readme
  * MIT Licensed
  */
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -1114,13 +1114,14 @@ var Pagination = function (_Component) {
       return;
     }
 
+    this.props.beforeRequest();
     this.setState({ pending: true });
     request.then(function (response) {
       _this2.setState({ pending: false });
       _this2.props.setPageAction(response.data.page, _this2.props.name);
       _this2.props.setPagesCountAction(response.data.pagesCount, _this2.props.name);
       _this2.props.setDataAction(response.data.items, response.data.page, _this2.props.name);
-      _this2.props.afterPageChange(response);
+      _this2.props.afterRequest(response);
     }).catch(function (error) {
       _this2.setState({ pending: false });
       console.error(error);
@@ -1171,6 +1172,7 @@ var Pagination = function (_Component) {
       return;
     }
     this.props.setPageAction(page, this.props.name);
+    this.props.afterPageChange(this.props.pagination['page-' + page]);
   };
 
   Pagination.prototype.calculateRanges = function calculateRanges() {
@@ -1358,6 +1360,8 @@ Pagination.defaultProps = {
   setPagesCountAction: function setPagesCountAction() {},
   setDataAction: function setDataAction() {},
   afterPageChange: function afterPageChange() {},
+  afterRequest: function afterRequest() {},
+  beforeRequest: function beforeRequest() {},
   pagination: {
     currentPage: 1,
     pagesCount: 0,
@@ -1388,6 +1392,8 @@ Pagination.propTypes = {
   setPagesCountAction: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func,
   setDataAction: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func,
   afterPageChange: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func,
+  afterRequest: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func,
+  beforeRequest: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func,
   children: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.any,
   onePageHide: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.bool,
   openPageByElementId: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.number,

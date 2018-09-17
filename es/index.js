@@ -66,13 +66,14 @@ var Pagination = function (_Component) {
       return;
     }
 
+    this.props.beforeRequest();
     this.setState({ pending: true });
     request.then(function (response) {
       _this2.setState({ pending: false });
       _this2.props.setPageAction(response.data.page, _this2.props.name);
       _this2.props.setPagesCountAction(response.data.pagesCount, _this2.props.name);
       _this2.props.setDataAction(response.data.items, response.data.page, _this2.props.name);
-      _this2.props.afterPageChange(response);
+      _this2.props.afterRequest(response);
     }).catch(function (error) {
       _this2.setState({ pending: false });
       console.error(error);
@@ -123,6 +124,7 @@ var Pagination = function (_Component) {
       return;
     }
     this.props.setPageAction(page, this.props.name);
+    this.props.afterPageChange(this.props.pagination['page-' + page]);
   };
 
   Pagination.prototype.calculateRanges = function calculateRanges() {
@@ -310,6 +312,8 @@ Pagination.defaultProps = {
   setPagesCountAction: function setPagesCountAction() {},
   setDataAction: function setDataAction() {},
   afterPageChange: function afterPageChange() {},
+  afterRequest: function afterRequest() {},
+  beforeRequest: function beforeRequest() {},
   pagination: {
     currentPage: 1,
     pagesCount: 0,
@@ -340,6 +344,8 @@ Pagination.propTypes = process.env.NODE_ENV !== "production" ? {
   setPagesCountAction: PropTypes.func,
   setDataAction: PropTypes.func,
   afterPageChange: PropTypes.func,
+  afterRequest: PropTypes.func,
+  beforeRequest: PropTypes.func,
   children: PropTypes.any,
   onePageHide: PropTypes.bool,
   openPageByElementId: PropTypes.number,
