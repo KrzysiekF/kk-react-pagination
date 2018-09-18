@@ -40,6 +40,7 @@ class Pagination extends Component {
 
   getPageRequest(page = 1) {
     if (this.props.pagination.data && this.props.pagination.data[`page-${page}`]) {
+      this.props.afterPageChange(this.props.pagination[`page-${page}`]);
       this.props.setPageAction(page, this.props.name);
       return;
     }
@@ -59,7 +60,9 @@ class Pagination extends Component {
         this.props.setPageAction(response.data.page, this.props.name);
         this.props.setPagesCountAction(response.data.pagesCount, this.props.name);
         this.props.setDataAction(response.data.items, response.data.page, this.props.name);
+        
         this.props.afterRequest(response);
+        this.props.afterPageChange(this.props.pagination[`page-${page}`]);
       })
       .catch((error) => {
         this.setState({ pending: false });
@@ -111,7 +114,6 @@ class Pagination extends Component {
       return;
     }
     this.props.setPageAction(page, this.props.name);
-    this.props.afterPageChange(this.props.pagination[`page-${page}`]);
   }
 
   calculateRanges() {
