@@ -55,7 +55,7 @@ var Pagination = function (_Component) {
     var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
 
     if (this.props.pagination.data && this.props.pagination.data['page-' + page]) {
-      this.props.afterPageChange(this.props.pagination['page-' + page]);
+      this.props.afterPageChange(page);
       this.props.setPageAction(page, this.props.name);
       return;
     }
@@ -76,7 +76,7 @@ var Pagination = function (_Component) {
       _this2.props.setDataAction(response.data.items, response.data.page, _this2.props.name);
 
       _this2.props.afterRequest(response);
-      _this2.props.afterPageChange(_this2.props.pagination['page-' + page]);
+      _this2.props.afterPageChange(page);
     }).catch(function (error) {
       _this2.setState({ pending: false });
       console.error(error);
