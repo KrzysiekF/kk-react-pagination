@@ -147,7 +147,9 @@ class Demo extends Component {
                         <h3>Simple</h3>
                         <div className="grid">
                             <div className="col-8">
-                                <Pagination name="demo1">
+                                <Pagination 
+                                    name="demo1"
+                                >
                                     {this.renderDemoList()}
                                 </Pagination>
                             </div>

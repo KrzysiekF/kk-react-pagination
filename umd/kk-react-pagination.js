@@ -1387,8 +1387,8 @@ Pagination.propTypes = {
     data: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.object
   }),
   startPage: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.number,
-  prevLabel: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string,
-  nextLabel: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string,
+  prevLabel: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.oneOfType([__WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string, __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func]),
+  nextLabel: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.oneOfType([__WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string, __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func]),
   align: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string,
   setPageAction: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func,
   setPagesCountAction: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func,

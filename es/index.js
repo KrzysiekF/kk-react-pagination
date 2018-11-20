@@ -339,8 +339,8 @@ Pagination.propTypes = process.env.NODE_ENV !== "production" ? {
     data: PropTypes.object
   }),
   startPage: PropTypes.number,
-  prevLabel: PropTypes.string,
-  nextLabel: PropTypes.string,
+  prevLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+  nextLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   align: PropTypes.string,
   setPageAction: PropTypes.func,
   setPagesCountAction: PropTypes.func,
