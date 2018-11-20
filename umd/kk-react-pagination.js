@@ -1,5 +1,5 @@
 /*!
- * kk-react-pagination v1.1.8 - https://github.com/KrzysiekF/kk-react-pagination#readme
+ * kk-react-pagination v1.1.9 - https://github.com/KrzysiekF/kk-react-pagination#readme
  * MIT Licensed
  */
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -1387,8 +1387,8 @@ Pagination.propTypes = {
     data: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.object
   }),
   startPage: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.number,
-  prevLabel: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.oneOfType([__WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string, __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func]),
-  nextLabel: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.oneOfType([__WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string, __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func]),
+  prevLabel: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.oneOfType([__WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string, __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.element]),
+  nextLabel: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.oneOfType([__WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string, __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.element]),
   align: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string,
   setPageAction: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func,
   setPagesCountAction: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func,
