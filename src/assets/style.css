@@ -13,3 +13,8 @@
 .kk-pagination.kk-right {
     text-align: right;
 }
+
+.kk-pagination-loader-box {
+    text-align: center;
+    padding: 50px 0;
+}

@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
 import Prism from 'prismjs';
 import AjaxElement from './ajax-element';
 import Pagination from '../../src';
-import { size } from 'lodash';
 import { setValueAction } from './actions/test-values';
 
 class Demo extends Component {
@@ -15,23 +13,71 @@ class Demo extends Component {
     }
 
     getPagesRequest(pageSize = 1, page = 1) {
-        const url = `./data-page-${page}.json`;
-        return axios.get(url, {});
-        // return new Promise((resolve, reject) => {
-        //   setTimeout(() => {
-        //     resolve({ data: {
-        //       "page": page,
-        //       "perPage": 3,
-        //       "itemsCount": 9,
-        //       "pagesCount": 3,
-        //       "items": [
-        //         { "name": "Element 1" },
-        //         { "name": "Element 2" },
-        //         { "name": "Element 3" }
-        //       ]
-        //     }});
-        //   }, 5000);
-        // });
+        return new Promise((resolve, reject) => {
+            let data = {};
+
+            switch (page) {
+                case 1:
+                    data = {
+                        "page": page,
+                        "perPage": 3,
+                        "itemsCount": 9,
+                        "pagesCount": 3,
+                        "items": [
+                            { "name": "Element 1" },
+                            { "name": "Element 2" },
+                            { "name": "Element 3" }
+                        ]
+                    };
+                    break;
+
+                case 2:
+                    data = {
+                        "page": page,
+                        "perPage": 3,
+                        "itemsCount": 9,
+                        "pagesCount": 3,
+                        "items": [
+                            { "name": "Element 4" },
+                            { "name": "Element 5" },
+                            { "name": "Element 6" }
+                        ]
+                    };
+                    break;
+
+                case 3:
+                    data = {
+                        "page": page,
+                        "perPage": 3,
+                        "itemsCount": 9,
+                        "pagesCount": 3,
+                        "items": [
+                            { "name": "Element 7" },
+                            { "name": "Element 8" },
+                            { "name": "Element 9" }
+                        ]
+                    };
+                    break;
+
+                default:
+                    data = {
+                        "page": page,
+                        "perPage": 3,
+                        "itemsCount": 9,
+                        "pagesCount": 3,
+                        "items": [
+                            { "name": "Element 1" },
+                            { "name": "Element 2" },
+                            { "name": "Element 3" }
+                        ]
+                    };
+                    break;
+            }
+
+            setTimeout(() => {
+                resolve({ data });
+            }, 3000);
+        });
     }
 
     renderDemoList(elementsNumber = 10) {
@@ -147,7 +193,7 @@ class Demo extends Component {
                         <h3>Simple</h3>
                         <div className="grid">
                             <div className="col-8">
-                                <Pagination 
+                                <Pagination
                                     name="demo1"
                                 >
                                     {this.renderDemoList()}
@@ -263,6 +309,7 @@ class Demo extends Component {
                                     request={this.getPagesRequest}
                                     component={AjaxElement}
                                     elementListClass="test-class"
+                                    loader={<img src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/ab79a231234507.564a1d23814ef.gif" width="30" height="30" />}
                                 />
                             </div>
                             <div className="col-7">
@@ -272,6 +319,7 @@ class Demo extends Component {
     name="demo-ajax"
     request={this.getPagesRequest}
     component={ElementComponent}
+    loader={<img src="IMAGE_URL" width="30" height="30" />}
   />`}
                                     </code>
                                 </pre>

@@ -26,6 +26,10 @@ Import
 
 (optional) `import 'kk-react-pagination/lib/assets/templates/simple.css';`
 
+or
+
+(optional) `import 'kk-react-pagination/lib/assets/templates/clean.css';`
+
 Examples
 --------
 `<pagination name="demo"> (content) </pagination>`
@@ -40,8 +44,9 @@ Options
 | `name`      | `''` (`string`) |             |
 | `pageSize`  | `5` (`number`)  |             |
 | `startPage` | `1` (`number`)  |             |
-| `prevLabel` | `prev` (`string`)  |             |
-| `nextLabel` | `next` (`string`)  |             |
+| `prevLabel` | `prev` (`string` or `component`)  |             |
+| `nextLabel` | `next` (`string` or `component`)  |             |
+| `loader` | `Loading...` (`string` or `component`)  |             |
 | `align` | `center` (`string`)  | `left ; center ; right` |
 | `onePageHide` | `false ` (`bool`)  | Hide pagination when is only one page. |
 | `openPageByElementId` | `0` (`number`)  | Must be unique. |
