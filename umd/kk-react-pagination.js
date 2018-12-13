@@ -1,5 +1,5 @@
 /*!
- * kk-react-pagination v1.2.0 - https://github.com/KrzysiekF/kk-react-pagination#readme
+ * kk-react-pagination v1.2.1 - https://github.com/KrzysiekF/kk-react-pagination#readme
  * MIT Licensed
  */
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -1314,12 +1314,17 @@ var Pagination = function (_Component) {
             component = _props.component,
             name = _props.name,
             request = _props.request,
-            elementListClass = _props.elementListClass;
+            elementListClass = _props.elementListClass,
+            emptyListMsg = _props.emptyListMsg;
         var pending = this.state.pending;
 
 
-        if (!pagination || !Object(__WEBPACK_IMPORTED_MODULE_3_lodash__["size"])(children) && (!Object(__WEBPACK_IMPORTED_MODULE_3_lodash__["size"])(data) || !Object(__WEBPACK_IMPORTED_MODULE_3_lodash__["size"])(data['page-' + currentPage]))) {
-            return this.renderLoader();
+        if (!pending && (!pagination || !Object(__WEBPACK_IMPORTED_MODULE_3_lodash__["size"])(children) && (!Object(__WEBPACK_IMPORTED_MODULE_3_lodash__["size"])(data) || !Object(__WEBPACK_IMPORTED_MODULE_3_lodash__["size"])(data['page-' + currentPage])))) {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                { className: 'kk-pagination-empty' },
+                emptyListMsg
+            );
         }
 
         var elements = Object(__WEBPACK_IMPORTED_MODULE_3_lodash__["size"])(children) ? children.map(function (element, key) {
@@ -1356,6 +1361,7 @@ Pagination.defaultProps = {
     prevLabel: 'prev',
     nextLabel: 'next',
     loader: 'Loading...',
+    emptyListMsg: 'Nothing to display',
     children: [],
     setPageAction: function setPageAction() {},
     setPagesCountAction: function setPagesCountAction() {},
@@ -1389,6 +1395,7 @@ Pagination.propTypes = {
     prevLabel: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.oneOfType([__WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string, __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.element]),
     nextLabel: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.oneOfType([__WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string, __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.element]),
     loader: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.oneOfType([__WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string, __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.element]),
+    emptyListMsg: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string,
     align: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.string,
     setPageAction: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func,
     setPagesCountAction: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func,

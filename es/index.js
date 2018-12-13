@@ -266,12 +266,17 @@ var Pagination = function (_Component) {
             component = _props.component,
             name = _props.name,
             request = _props.request,
-            elementListClass = _props.elementListClass;
+            elementListClass = _props.elementListClass,
+            emptyListMsg = _props.emptyListMsg;
         var pending = this.state.pending;
 
 
-        if (!pagination || !size(children) && (!size(data) || !size(data['page-' + currentPage]))) {
-            return this.renderLoader();
+        if (!pending && (!pagination || !size(children) && (!size(data) || !size(data['page-' + currentPage])))) {
+            return React.createElement(
+                'div',
+                { className: 'kk-pagination-empty' },
+                emptyListMsg
+            );
         }
 
         var elements = size(children) ? children.map(function (element, key) {
@@ -308,6 +313,7 @@ Pagination.defaultProps = {
     prevLabel: 'prev',
     nextLabel: 'next',
     loader: 'Loading...',
+    emptyListMsg: 'Nothing to display',
     children: [],
     setPageAction: function setPageAction() {},
     setPagesCountAction: function setPagesCountAction() {},
@@ -341,6 +347,7 @@ Pagination.propTypes = process.env.NODE_ENV !== "production" ? {
     prevLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
     nextLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
     loader: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+    emptyListMsg: PropTypes.string,
     align: PropTypes.string,
     setPageAction: PropTypes.func,
     setPagesCountAction: PropTypes.func,
