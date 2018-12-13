@@ -399,6 +399,16 @@ class Demo extends Component {
                                     <td />
                                 </tr>
                                 <tr>
+                                    <td><code>emptyListMsg</code></td>
+                                    <td><code>Nothing to display</code> (<code>string</code>)</td>
+                                    <td />
+                                </tr>
+                                <tr>
+                                    <td><code>loader</code></td>
+                                    <td><code>Loading...</code> (<code>string</code> or <code>Component</code>)</td>
+                                    <td />
+                                </tr>
+                                <tr>
                                     <td><code>align</code></td>
                                     <td><code>center</code> (<code>string</code>)</td>
                                     <td>
@@ -411,21 +421,21 @@ class Demo extends Component {
                                     <td><code>false</code> (<code>bool</code>)</td>
                                     <td>
                                         Hide pagination when is only one page.
-                    </td>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td><code>openPageByElementId</code></td>
                                     <td><code>0</code> (<code>number</code>)</td>
                                     <td>
                                         Must be unique.
-                    </td>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td><code>displayedPages</code></td>
                                     <td><code>5</code> (<code>number</code>)</td>
                                     <td>
                                         How many page numbers should be visible while navigating.
-                    </td>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td><code>request</code></td>

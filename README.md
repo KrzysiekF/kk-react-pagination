@@ -46,6 +46,7 @@ Options
 | `startPage` | `1` (`number`)  |             |
 | `prevLabel` | `prev` (`string` or `component`)  |             |
 | `nextLabel` | `next` (`string` or `component`)  |             |
+| `emptyListMsg` | `Nothing to display` (`string`)  |             |
 | `loader` | `Loading...` (`string` or `component`)  |             |
 | `align` | `center` (`string`)  | `left ; center ; right` |
 | `onePageHide` | `false ` (`bool`)  | Hide pagination when is only one page. |

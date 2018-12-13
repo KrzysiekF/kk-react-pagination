@@ -235,19 +235,25 @@ class Pagination extends Component {
             name,
             request,
             elementListClass,
+            emptyListMsg,
         } = this.props;
         const { pending } = this.state;
 
         if (
-            !pagination 
-            || !size(children) 
+            !pending
             && (
-                !size(data) 
-                || !size(data[`page-${currentPage}`]
+                !pagination 
+                || !size(children) 
+                && (
+                    !size(data) 
+                    || !size(data[`page-${currentPage}`]
+                    )
                 )
             )
         ) {
-            return this.renderLoader();
+            return (
+                <div className="kk-pagination-empty">{emptyListMsg}</div>
+            );
         }
 
         const elements = size(children) ? children.map((element, key) => (
@@ -284,6 +290,7 @@ Pagination.defaultProps = {
     prevLabel: 'prev',
     nextLabel: 'next',
     loader: 'Loading...',
+    emptyListMsg: 'Nothing to display',
     children: [],
     setPageAction: () => { },
     setPagesCountAction: () => { },
@@ -317,6 +324,7 @@ Pagination.propTypes = {
     prevLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
     nextLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
     loader: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+    emptyListMsg: PropTypes.string,
     align: PropTypes.string,
     setPageAction: PropTypes.func,
     setPagesCountAction: PropTypes.func,
