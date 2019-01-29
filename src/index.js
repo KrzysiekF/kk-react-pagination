@@ -40,7 +40,7 @@ class Pagination extends Component {
 
     componentDidUpdate(prevProps) {
         if (this.props.request && this.props.filters !== prevProps.filters) {
-            this.getPageRequest(this.props.pagination.currentPage, this.props.filters);
+            this.getPageRequest(this.props.pagination.currentPage, this.props.filters, true);
             return;
         }
 
@@ -54,15 +54,15 @@ class Pagination extends Component {
         }
     }
 
-    getPageRequest(page = 1) {
-        if (this.props.pagination.data && this.props.pagination.data[`page-${page}`]) {
+    getPageRequest(page = 1, filters, forceRequest = false) {
+        if (!forceRequest && this.props.pagination.data && this.props.pagination.data[`page-${page}`]) {
             this.props.afterPageChange(page);
             this.props.setPageAction(page, this.props.name);
             return;
         }
 
         const pageSize = this.props.pageSize ? this.props.pageSize : 1;
-        const request = this.props.request(pageSize, page);
+        const request = this.props.request(pageSize, page, filters);
 
         if (!request) {
             return;

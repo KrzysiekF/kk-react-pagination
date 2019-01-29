@@ -1,5 +1,5 @@
 /*!
- * kk-react-pagination v1.2.2 - https://github.com/KrzysiekF/kk-react-pagination#readme
+ * kk-react-pagination v1.2.3 - https://github.com/KrzysiekF/kk-react-pagination#readme
  * MIT Licensed
  */
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -1099,7 +1099,7 @@ var Pagination = function (_Component) {
 
     Pagination.prototype.componentDidUpdate = function componentDidUpdate(prevProps) {
         if (this.props.request && this.props.filters !== prevProps.filters) {
-            this.getPageRequest(this.props.pagination.currentPage, this.props.filters);
+            this.getPageRequest(this.props.pagination.currentPage, this.props.filters, true);
             return;
         }
 
@@ -1114,18 +1114,21 @@ var Pagination = function (_Component) {
     };
 
     Pagination.prototype.getPageRequest = function getPageRequest() {
-        var _this2 = this;
-
         var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
 
-        if (this.props.pagination.data && this.props.pagination.data['page-' + page]) {
+        var _this2 = this;
+
+        var filters = arguments[1];
+        var forceRequest = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+
+        if (!forceRequest && this.props.pagination.data && this.props.pagination.data['page-' + page]) {
             this.props.afterPageChange(page);
             this.props.setPageAction(page, this.props.name);
             return;
         }
 
         var pageSize = this.props.pageSize ? this.props.pageSize : 1;
-        var request = this.props.request(pageSize, page);
+        var request = this.props.request(pageSize, page, filters);
 
         if (!request) {
             return;
