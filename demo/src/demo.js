@@ -6,6 +6,10 @@ import Pagination from '../../src';
 import { setValueAction } from './actions/test-values';
 
 class Demo extends Component {
+    state = {
+        startPage: 2,
+    };
+
     constructor(props) {
         super(props);
 
@@ -216,13 +220,23 @@ class Demo extends Component {
                                 <Pagination
                                     name="demo2"
                                     pageSize={2}
-                                    startPage={2}
+                                    startPage={this.state.startPage}
                                     align="left"
                                     prevLabel="&laquo;"
                                     nextLabel="&raquo;"
                                 >
                                     {this.renderDemoList()}
                                 </Pagination>
+                                <div>
+                                    Start page: 
+                                    <input 
+                                        type="text" 
+                                        value={this.state.startPage} 
+                                        onChange={(event) => {
+                                            this.setState({ startPage: parseInt(event.target.value, 10) });
+                                        }} 
+                                    />
+                                </div>
                             </div>
                             <div className="col">
                                 <pre>

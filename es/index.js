@@ -33,7 +33,7 @@ var Pagination = function (_Component) {
 
     Pagination.prototype.componentDidMount = function componentDidMount() {
         if (this.props.request) {
-            this.getPageRequest(this.props.pagination.currentPage);
+            this.getPageRequest(this.props.pagination.currentPage, this.props.filters);
             return;
         }
 
@@ -47,6 +47,22 @@ var Pagination = function (_Component) {
         }
 
         this.props.setPagesCountAction(PagerCalc.pagesCount(this.props.children.length, this.props.pageSize), this.props.name);
+    };
+
+    Pagination.prototype.componentDidUpdate = function componentDidUpdate(prevProps) {
+        if (this.props.request && this.props.filters !== prevProps.filters) {
+            this.getPageRequest(this.props.pagination.currentPage, this.props.filters);
+            return;
+        }
+
+        if (this.props.openPageByElementId && this.props.openPageByElementId !== prevProps.openPageByElementId) {
+            var page = this.findPageById();
+            this.changePage(page);
+        }
+
+        if (this.props.startPage && this.props.startPage !== prevProps.startPage) {
+            this.changePage(this.props.startPage);
+        }
     };
 
     Pagination.prototype.getPageRequest = function getPageRequest() {
@@ -308,6 +324,7 @@ var Pagination = function (_Component) {
 
 Pagination.defaultProps = {
     pageSize: 5,
+    filters: null,
     startPage: 1,
     align: 'center',
     prevLabel: 'prev',
@@ -337,6 +354,7 @@ Pagination.defaultProps = {
 
 Pagination.propTypes = process.env.NODE_ENV !== "production" ? {
     name: PropTypes.string.isRequired,
+    filters: PropTypes.string,
     pageSize: PropTypes.number,
     pagination: PropTypes.shape({
         currentPage: PropTypes.number,

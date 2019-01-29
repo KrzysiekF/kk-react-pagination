@@ -19,7 +19,7 @@ class Pagination extends Component {
 
     componentDidMount() {
         if (this.props.request) {
-            this.getPageRequest(this.props.pagination.currentPage);
+            this.getPageRequest(this.props.pagination.currentPage, this.props.filters);
             return;
         }
 
@@ -36,6 +36,22 @@ class Pagination extends Component {
             PagerCalc.pagesCount(this.props.children.length, this.props.pageSize),
             this.props.name,
         );
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.request && this.props.filters !== prevProps.filters) {
+            this.getPageRequest(this.props.pagination.currentPage, this.props.filters);
+            return;
+        }
+
+        if (this.props.openPageByElementId && this.props.openPageByElementId !== prevProps.openPageByElementId) {
+            const page = this.findPageById();
+            this.changePage(page);
+        }
+
+        if (this.props.startPage && this.props.startPage !== prevProps.startPage) {
+            this.changePage(this.props.startPage);
+        }
     }
 
     getPageRequest(page = 1) {
@@ -285,6 +301,7 @@ class Pagination extends Component {
 
 Pagination.defaultProps = {
     pageSize: 5,
+    filters: null,
     startPage: 1,
     align: 'center',
     prevLabel: 'prev',
@@ -314,6 +331,7 @@ Pagination.defaultProps = {
 
 Pagination.propTypes = {
     name: PropTypes.string.isRequired,
+    filters: PropTypes.string,
     pageSize: PropTypes.number,
     pagination: PropTypes.shape({
         currentPage: PropTypes.number,
