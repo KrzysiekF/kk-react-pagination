@@ -96,6 +96,10 @@ class Pagination extends Component {
         }
 
         elements.map((element, k) => {
+            if (!element) {
+                return element;
+            }
+
             const elementID = parseInt(element.props['data-pagination-id'], 10);
 
             if (elementID === id) {

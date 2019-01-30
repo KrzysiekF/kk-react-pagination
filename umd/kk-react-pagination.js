@@ -1,5 +1,5 @@
 /*!
- * kk-react-pagination v1.2.3 - https://github.com/KrzysiekF/kk-react-pagination#readme
+ * kk-react-pagination v1.2.4 - https://github.com/KrzysiekF/kk-react-pagination#readme
  * MIT Licensed
  */
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -1160,6 +1160,10 @@ var Pagination = function (_Component) {
         }
 
         elements.map(function (element, k) {
+            if (!element) {
+                return element;
+            }
+
             var elementID = parseInt(element.props['data-pagination-id'], 10);
 
             if (elementID === id) {

@@ -112,6 +112,10 @@ var Pagination = function (_Component) {
         }
 
         elements.map(function (element, k) {
+            if (!element) {
+                return element;
+            }
+
             var elementID = parseInt(element.props['data-pagination-id'], 10);
 
             if (elementID === id) {
