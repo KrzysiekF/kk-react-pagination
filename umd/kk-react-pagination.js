@@ -1,5 +1,5 @@
 /*!
- * kk-react-pagination v1.2.4 - https://github.com/KrzysiekF/kk-react-pagination#readme
+ * kk-react-pagination v1.2.5 - https://github.com/KrzysiekF/kk-react-pagination#readme
  * MIT Licensed
  */
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -1138,6 +1138,7 @@ var Pagination = function (_Component) {
         this.setState({ pending: true });
         request.then(function (response) {
             _this2.setState({ pending: false });
+
             _this2.props.setPageAction(response.data.page, _this2.props.name);
             _this2.props.setPagesCountAction(response.data.pagesCount, _this2.props.name);
             _this2.props.setDataAction(response.data.items, response.data.page, _this2.props.name);
@@ -20729,12 +20730,12 @@ function setPagesCountAction(count, pagerName) {
 }
 
 function setDataAction(data, page, pagerName) {
-  var _data;
+  var _payload;
 
   return {
     type: __WEBPACK_IMPORTED_MODULE_0__types__["a" /* SET_DATA */],
     name: pagerName,
-    payload: { data: (_data = {}, _data['page-' + page] = data, _data) }
+    payload: (_payload = {}, _payload['page-' + page] = data, _payload)
   };
 }
 

@@ -73,6 +73,7 @@ class Pagination extends Component {
         request
             .then((response) => {
                 this.setState({ pending: false });
+
                 this.props.setPageAction(response.data.page, this.props.name);
                 this.props.setPagesCountAction(response.data.pagesCount, this.props.name);
                 this.props.setDataAction(response.data.items, response.data.page, this.props.name);

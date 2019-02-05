@@ -17,11 +17,11 @@ export function setPagesCountAction(count, pagerName) {
 }
 
 export function setDataAction(data, page, pagerName) {
-  var _data;
+  var _payload;
 
   return {
     type: SET_DATA,
     name: pagerName,
-    payload: { data: (_data = {}, _data['page-' + page] = data, _data) }
+    payload: (_payload = {}, _payload['page-' + page] = data, _payload)
   };
 }

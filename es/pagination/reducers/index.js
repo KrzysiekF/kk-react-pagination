@@ -1,8 +1,9 @@
 import _ from 'lodash';
+import update from 'immutability-helper';
 import { SET_PAGE, SET_PAGES_COUNT, SET_DATA } from '../actions/types';
 
 export default function () {
-  var _$merge, _$merge2, _$merge3;
+  var _$merge, _$merge2, _update;
 
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments[1];
@@ -13,7 +14,12 @@ export default function () {
     case SET_PAGES_COUNT:
       return _.merge({}, state, (_$merge2 = {}, _$merge2[action.name] = action.payload, _$merge2));
     case SET_DATA:
-      return _.merge({}, state, (_$merge3 = {}, _$merge3[action.name] = action.payload, _$merge3));
+      return update(state, (_update = {}, _update[action.name] = {
+        data: {
+          $set: action.payload
+        }
+      }, _update));
+    // return _.merge({}, state, { [action.name]: action.payload });
     default:
       return state;
   }

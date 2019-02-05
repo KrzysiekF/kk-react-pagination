@@ -20,6 +20,8 @@ export function setDataAction(data, page, pagerName) {
   return {
     type: SET_DATA,
     name: pagerName,
-    payload: { data: { [`page-${page}`]: data } },
+    payload: { 
+      [`page-${page}`]: data,
+    },
   };
 }

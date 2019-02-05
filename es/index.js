@@ -90,6 +90,7 @@ var Pagination = function (_Component) {
         this.setState({ pending: true });
         request.then(function (response) {
             _this2.setState({ pending: false });
+
             _this2.props.setPageAction(response.data.page, _this2.props.name);
             _this2.props.setPagesCountAction(response.data.pagesCount, _this2.props.name);
             _this2.props.setDataAction(response.data.items, response.data.page, _this2.props.name);
