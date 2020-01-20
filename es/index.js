@@ -63,6 +63,15 @@ var Pagination = function (_Component) {
         if (this.props.startPage && this.props.startPage !== prevProps.startPage) {
             this.changePage(this.props.startPage);
         }
+
+        if (this.props.data !== prevProps.data) {
+            var data = this.props.data;
+            if (data) {
+                this.props.setPageAction(data.page, this.props.name);
+                this.props.setPagesCountAction(data.pagesCount, this.props.name);
+                this.props.setDataAction(data.items, data.page, this.props.name);
+            }
+        }
     };
 
     Pagination.prototype.getPageRequest = function getPageRequest() {
@@ -291,9 +300,11 @@ var Pagination = function (_Component) {
             name = _props.name,
             request = _props.request,
             elementListClass = _props.elementListClass,
-            emptyListMsg = _props.emptyListMsg;
-        var pending = this.state.pending;
+            emptyListMsg = _props.emptyListMsg,
+            propPending = _props.pending;
+        var statePending = this.state.pending.pending;
 
+        var pending = propPending || statePending;
 
         if (!pending && (!pagination || !size(children) && (!size(data) || !size(data['page-' + currentPage])))) {
             return React.createElement(
@@ -357,7 +368,8 @@ Pagination.defaultProps = {
     request: null,
     component: null,
     elementListClass: '',
-    customClass: ''
+    customClass: '',
+    pending: false
 };
 
 Pagination.propTypes = process.env.NODE_ENV !== "production" ? {
@@ -388,7 +400,13 @@ Pagination.propTypes = process.env.NODE_ENV !== "production" ? {
     request: PropTypes.func,
     component: PropTypes.func,
     elementListClass: PropTypes.string,
-    customClass: PropTypes.string
+    customClass: PropTypes.string,
+    data: PropTypes.shape({
+        currentPage: PropTypes.number,
+        pagesCount: PropTypes.number,
+        data: PropTypes.object
+    }),
+    pending: PropTypes.bool
 } : {};
 
 var mapStateToProps = function mapStateToProps(state, props) {

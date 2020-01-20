@@ -19201,6 +19201,15 @@ var src_Pagination = function (_Component) {
         if (this.props.startPage && this.props.startPage !== prevProps.startPage) {
             this.changePage(this.props.startPage);
         }
+
+        if (this.props.data !== prevProps.data) {
+            var data = this.props.data;
+            if (data) {
+                this.props.setPageAction(data.page, this.props.name);
+                this.props.setPagesCountAction(data.pagesCount, this.props.name);
+                this.props.setDataAction(data.items, data.page, this.props.name);
+            }
+        }
     };
 
     Pagination.prototype.getPageRequest = function getPageRequest() {
@@ -19429,9 +19438,11 @@ var src_Pagination = function (_Component) {
             name = _props.name,
             request = _props.request,
             elementListClass = _props.elementListClass,
-            emptyListMsg = _props.emptyListMsg;
-        var pending = this.state.pending;
+            emptyListMsg = _props.emptyListMsg,
+            propPending = _props.pending;
+        var statePending = this.state.pending.pending;
 
+        var pending = propPending || statePending;
 
         if (!pending && (!pagination || !Object(lodash["size"])(children) && (!Object(lodash["size"])(data) || !Object(lodash["size"])(data['page-' + currentPage])))) {
             return external_root_React_commonjs2_react_commonjs_react_amd_react_default.a.createElement(
@@ -19495,7 +19506,8 @@ src_Pagination.defaultProps = {
     request: null,
     component: null,
     elementListClass: '',
-    customClass: ''
+    customClass: '',
+    pending: false
 };
 
 src_Pagination.propTypes = {
@@ -19526,7 +19538,13 @@ src_Pagination.propTypes = {
     request: prop_types_default.a.func,
     component: prop_types_default.a.func,
     elementListClass: prop_types_default.a.string,
-    customClass: prop_types_default.a.string
+    customClass: prop_types_default.a.string,
+    data: prop_types_default.a.shape({
+        currentPage: prop_types_default.a.number,
+        pagesCount: prop_types_default.a.number,
+        data: prop_types_default.a.object
+    }),
+    pending: prop_types_default.a.bool
 };
 
 var src_mapStateToProps = function mapStateToProps(state, props) {

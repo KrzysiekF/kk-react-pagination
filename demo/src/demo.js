@@ -8,12 +8,24 @@ import { setValueAction } from './actions/test-values';
 class Demo extends Component {
     state = {
         startPage: 2,
+        data: null,
+        pending: false
     };
 
     constructor(props) {
         super(props);
 
         this.changeTestValue = this.changeTestValue.bind(this);
+        this.getPageRequestAndSave = this.getPageRequestAndSave.bind(this);
+    }
+
+    async getPageRequestAndSave(...params) {
+        this.setState({ pending: true });
+
+        const data = await this.getPagesRequest(...params);
+        this.setState({ data: data.data, pending: false });
+
+        return data;
     }
 
     getPagesRequest(pageSize = 1, page = 1) {
@@ -80,7 +92,7 @@ class Demo extends Component {
 
             setTimeout(() => {
                 resolve({ data });
-            }, 3000);
+            }, 2000);
         });
     }
 
@@ -228,13 +240,13 @@ class Demo extends Component {
                                     {this.renderDemoList()}
                                 </Pagination>
                                 <div>
-                                    Start page: 
-                                    <input 
-                                        type="text" 
-                                        value={this.state.startPage} 
+                                    Start page:
+                                    <input
+                                        type="text"
+                                        value={this.state.startPage}
                                         onChange={(event) => {
                                             this.setState({ startPage: parseInt(event.target.value, 10) });
-                                        }} 
+                                        }}
                                     />
                                 </div>
                             </div>
@@ -374,6 +386,40 @@ class Demo extends Component {
                                 </pre>
                             </div>
                         </div>
+                        <h3>
+                            Controlled&nbsp;
+                            <button onClick={ () => this.getPageRequestAndSave(5, 1) }>
+                            Reload
+                            </button>
+                        </h3>
+                        <div className="grid">
+                            <div className="col-5">
+                                <Pagination
+                                    name="demo-controlled"
+                                    request={ this.getPageRequestAndSave }
+                                    component={ AjaxElement }
+                                    elementListClass="test-class"
+                                    data={this.state.data}
+                                    pending={this.state.pending}
+                                />
+                            </div>
+                            <div className="col-7">
+                                <pre>
+                                    <code className="language-javascript">
+{
+`<Pagination
+    name="demo-controlled"
+    request={ this.getPageRequestAndSave }
+    component={ AjaxElement }
+    elementListClass="test-class"
+    data={this.state.data}
+    pending={this.state.pending}
+/>`
+}
+                                    </code>
+                                </pre>
+                            </div>
+                        </div>
                     </section>
 
                     <section>
@@ -453,7 +499,7 @@ class Demo extends Component {
                                 </tr>
                                 <tr>
                                     <td><code>request</code></td>
-                                    <td><code>Function</code> (<code>Promice</code>)</td>
+                                    <td><code>Function</code> (<code>Promise</code>)</td>
                                     <td>
                                         The function that sends a request to the server and returns Promise.<br />
                                         The response from the server should be as follows:
@@ -484,6 +530,27 @@ class Demo extends Component {
                                         Additional class on the tag containing the list of elements.
                     </td>
                                 </tr>
+                                <tr>
+                                    <td><code>data</code></td>
+                                    <td><code>Object(undefined)</code></td>
+                                    <td><code>Add support to be controlled component<br/>
+                                        The data structure should be as follows:
+                                        <pre><code>
+{ `{
+    "page": 1, // number
+    "perPage": 5, // number
+    "itemsCount": 15, // number
+    "pagesCount": 3, // number
+    "items": [{}] // array of objects
+}` }
+                                        </code></pre></code>
+                                    </td>
+                                </tr>
+                            <tr>
+                                <td><code>pending</code></td>
+                                <td><code>false(bool)</code></td>
+                                <td><code></code></td>
+                            </tr>
                             </tbody>
                         </table>
                     </section>

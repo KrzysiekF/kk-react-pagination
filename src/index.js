@@ -52,6 +52,15 @@ class Pagination extends Component {
         if (this.props.startPage && this.props.startPage !== prevProps.startPage) {
             this.changePage(this.props.startPage);
         }
+
+        if(this.props.data !== prevProps.data) {
+            const data = this.props.data;
+            if (data) {
+                this.props.setPageAction(data.page, this.props.name);
+                this.props.setPagesCountAction(data.pagesCount, this.props.name);
+                this.props.setDataAction(data.items, data.page, this.props.name);
+            }
+        }
     }
 
     getPageRequest(page = 1, filters, forceRequest = false) {
@@ -257,16 +266,18 @@ class Pagination extends Component {
             request,
             elementListClass,
             emptyListMsg,
+            pending: propPending
         } = this.props;
-        const { pending } = this.state;
+        const { pending: statePending } = this.state.pending;
+        const pending = propPending || statePending;
 
         if (
             !pending
             && (
-                !pagination 
-                || !size(children) 
+                !pagination
+                || !size(children)
                 && (
-                    !size(data) 
+                    !size(data)
                     || !size(data[`page-${currentPage}`]
                     )
                 )
@@ -332,6 +343,7 @@ Pagination.defaultProps = {
     component: null,
     elementListClass: '',
     customClass: '',
+    pending: false
 };
 
 Pagination.propTypes = {
@@ -363,6 +375,12 @@ Pagination.propTypes = {
     component: PropTypes.func,
     elementListClass: PropTypes.string,
     customClass: PropTypes.string,
+    data: PropTypes.shape({
+        currentPage: PropTypes.number,
+        pagesCount: PropTypes.number,
+        data: PropTypes.object,
+    }),
+    pending: PropTypes.bool
 };
 
 const mapStateToProps = (state, props) => ({ pagination: state.paginations[props.name] });
