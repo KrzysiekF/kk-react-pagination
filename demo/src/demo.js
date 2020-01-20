@@ -557,7 +557,7 @@ class Demo extends Component {
 
                     <footer>
                         <a href="http://krzysztof-furtak.pl" target="_blank">Krzysztof
-                  Furtak</a> &copy; copyright 2017-2018
+                  Furtak</a> &copy; copyright 2017-2020
               </footer>
                 </div>
             </div>);
