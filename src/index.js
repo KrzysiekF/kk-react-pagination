@@ -268,7 +268,7 @@ class Pagination extends Component {
             emptyListMsg,
             pending: propPending
         } = this.props;
-        const { pending: statePending } = this.state.pending;
+        const { pending: statePending } = this.state;
         const pending = propPending || statePending;
 
         if (
