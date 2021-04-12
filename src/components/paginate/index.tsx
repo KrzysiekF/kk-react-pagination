@@ -52,7 +52,7 @@ const Paginate = ({ data, pageSize = 5 }: Props): React.ReactElement | null => {
 
         for (let i = 1; i <= pagesCount; i++) {
             buttons.push(
-                <li className={i === currentPage ? stylesClasses.active : ''}>
+                <li className={i === currentPage ? stylesClasses.active : ''} key={`krp-button-${i}`}>
                     <button onClick={() => goToPage(i)}>{i}</button>
                 </li>,
             );
@@ -60,11 +60,11 @@ const Paginate = ({ data, pageSize = 5 }: Props): React.ReactElement | null => {
 
         return (
             <ul className={`krp__pagination-list ${stylesClasses.pagination}`}>
-                <li>
+                <li key={'krp-button-prev'}>
                     <button onClick={setPrevPage}>prev</button>
                 </li>
                 {buttons}
-                <li>
+                <li key={'krp-button-next'}>
                     <button onClick={setNextPage}>next</button>
                 </li>
             </ul>

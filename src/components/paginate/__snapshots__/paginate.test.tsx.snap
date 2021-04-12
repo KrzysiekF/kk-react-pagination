@@ -1,0 +1,82 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Paginate render() renders a submit button: 
+        <div class="krp">
+            <div class="krp__list">
+                <div>Element #1</div>
+                <div>Element #2</div>
+                <div>Element #3</div>
+                <div>Element #4</div>
+                <div>Element #5</div>
+            </div>
+            <div class="krp__pagination">
+                <ul class="krp__pagination-list pagination-1-2-3">
+                    <li><button>prev</button></li>
+                    <li class="active-1-2-4"><button>1</button></li>
+                    <li class=""><button>2</button></li>
+                    <li><button>next</button></li>
+                </ul>
+            </div>
+        </div>
+       1`] = `
+<div
+  class="krp"
+>
+  <div
+    class="krp__list"
+  >
+    <div>
+      Element #
+      1
+    </div>
+    <div>
+      Element #
+      2
+    </div>
+    <div>
+      Element #
+      3
+    </div>
+    <div>
+      Element #
+      4
+    </div>
+    <div>
+      Element #
+      5
+    </div>
+  </div>
+  <div
+    class="krp__pagination"
+  >
+    <ul
+      class="krp__pagination-list pagination-0-2-1"
+    >
+      <li>
+        <button>
+          prev
+        </button>
+      </li>
+      <li
+        class="active-0-2-2"
+      >
+        <button>
+          1
+        </button>
+      </li>
+      <li
+        class=""
+      >
+        <button>
+          2
+        </button>
+      </li>
+      <li>
+        <button>
+          next
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>
+`;
