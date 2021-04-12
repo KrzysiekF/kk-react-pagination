@@ -1,6 +1,6 @@
 {
   "name": "kk-react-pagination",
-  "version": "2.0.0",
+  "version": "2.0.0-development",
   "author": "Krzysztof Furtak",
   "description": "Pagination component for ReactJS",
   "keywords": [
@@ -53,7 +53,8 @@
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-react": "^7.23.2",
     "prettier": "^2.2.1",
-    "storybook-readme": "^5.0.9"
+    "storybook-readme": "^5.0.9",
+    "semantic-release": "^17.4.2"
   },
   "scripts": {
     "clean": "rm -rf ./lib",
@@ -65,7 +66,8 @@
     "test": "react-scripts test",
     "build-storybook": "build-storybook",
     "lint": "eslint './src/**/*.{js,jsx,ts,tsx}'",
-    "lint:fix": "eslint --fix './src/**/*.{js,jsx,ts,tsx}'"
+    "lint:fix": "eslint --fix './src/**/*.{js,jsx,ts,tsx}'",
+    "release": "semantic-release"
   },
   "eslintConfig": {
     "extends": [
