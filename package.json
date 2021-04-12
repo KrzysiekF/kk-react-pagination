@@ -1,64 +1,100 @@
 {
   "name": "kk-react-pagination",
-  "version": "1.2.9",
-  "description": "Pagination component for ReactJS",
+  "version": "2.0.0-development",
   "author": "Krzysztof Furtak",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/KrzysiekF/kk-react-pagination/issues"
-  },
-  "homepage": "https://github.com/KrzysiekF/kk-react-pagination#readme",
-  "main": "lib/index.js",
-  "module": "es/index.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/KrzysiekF/kk-react-pagination.git"
-  },
+  "description": "Pagination component for ReactJS",
   "keywords": [
     "react",
     "reactjs",
     "pagination",
     "paginator"
   ],
+  "license": "MIT",
+  "main": "lib/src/index.js",
+  "private": false,
+  "directories": {
+    "lib": "lib"
+  },
   "files": [
-    "css",
-    "es",
-    "lib",
-    "umd"
+    "lib"
   ],
-  "scripts": {
-    "build": "nwb build-react-component --copy-files",
-    "clean": "nwb clean-module && nwb clean-demo",
-    "start": "nwb serve-react-demo --port 9000",
-    "test": "nwb test-react",
-    "test:coverage": "nwb test-react --coverage",
-    "test:watch": "nwb test-react --server"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KrzysiekF/kk-react-pagination.git"
   },
   "dependencies": {
-    "immutability-helper": "^3.0.0",
-    "lodash": "^4.17.11",
-    "prop-types": "^15.7.2"
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "@types/jest": "^26.0.15",
+    "@types/node": "^12.0.0",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-jss": "^10.6.0",
+    "react-scripts": "4.0.3",
+    "typescript": "^4.1.2",
+    "web-vitals": "^1.0.1"
   },
   "devDependencies": {
-    "axios": "^0.21.1",
-    "babel-eslint": "^10.0.1",
-    "eslint": "^5.15.1",
-    "eslint-config-airbnb": "^17.1.0",
-    "eslint-plugin-flowtype": "^3.4.2",
-    "eslint-plugin-import": "^2.16.0",
-    "eslint-plugin-jsx-a11y": "^6.2.1",
-    "eslint-plugin-react": "^7.12.4",
-    "gridlex": "^2.7.1",
-    "karma-firefox-launcher": "^1.1.0",
-    "karma-phantomjs-launcher": "^1.0.4",
-    "normalize.css": "^8.0.1",
-    "nwb": "^0.23.0",
-    "phantomjs": "^2.1.7",
-    "phantomjs-prebuilt": "^2.1.16",
-    "prismjs": "^1.15.0",
-    "react": "^16.8.4",
-    "react-dom": "^16.8.4",
-    "react-redux": "^6.0.1",
-    "redux": "^4.0.1"
+    "@storybook/addon-actions": "^6.2.7",
+    "@storybook/addon-essentials": "^6.2.7",
+    "@storybook/addon-knobs": "^6.2.7",
+    "@storybook/addon-links": "^6.2.7",
+    "@storybook/node-logger": "^6.2.7",
+    "@storybook/preset-create-react-app": "^3.1.7",
+    "@storybook/react": "^6.2.7",
+    "@typescript-eslint/eslint-plugin": "^4.21.0",
+    "@typescript-eslint/parser": "^4.21.0",
+    "eslint": "^7.24.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-react": "^7.23.2",
+    "prettier": "^2.2.1",
+    "storybook-readme": "^5.0.9",
+    "semantic-release": "^17.4.2"
+  },
+  "scripts": {
+    "clean": "rm -rf ./lib",
+    "prebuild": "npm run clean",
+    "build": "tsc --build \"./tsconfig.json\"",
+    "copy-files": "copyfiles -u 1 src/style/base.css lib/",
+    "postbuild": "npm run copy-files",
+    "start": "start-storybook -p 9009 -s public",
+    "test": "react-scripts test",
+    "build-storybook": "build-storybook",
+    "lint": "eslint './src/**/*.{js,jsx,ts,tsx}'",
+    "lint:fix": "eslint --fix './src/**/*.{js,jsx,ts,tsx}'",
+    "release": "semantic-release"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ],
+    "overrides": [
+      {
+        "files": [
+          "**/*.stories.*"
+        ],
+        "rules": {
+          "import/no-anonymous-default-export": "off"
+        }
+      }
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
