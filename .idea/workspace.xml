@@ -1,23 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7a2cc84a-30c1-4f32-8092-0117e9275e42" name="Default Changelist" comment="Delete old files">
-      <change afterPath="$PROJECT_DIR$/.eslintrc.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.prettierrc.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.storybook/welcome.stories.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/paginate/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/paginate/index.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/paginate/paginate.stories.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/paginate/paginate.style.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/paginate/paginate.test.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/helpers/PagerCalculations.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/modules.d.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/style/globalStyle.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jsLinters/eslint.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="7a2cc84a-30c1-4f32-8092-0117e9275e42" name="Default Changelist" comment="Simple pagination">
+      <change afterPath="$PROJECT_DIR$/.travis.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,7 +57,7 @@
       <workItem from="1618229576323" duration="669000" />
       <workItem from="1618230284118" duration="476000" />
       <workItem from="1618230800750" duration="3229000" />
-      <workItem from="1618234063202" duration="9364000" />
+      <workItem from="1618234063202" duration="9591000" />
     </task>
     <task id="LOCAL-00001" summary="-">
       <created>1618227373342</created>
@@ -88,7 +73,14 @@
       <option name="project" value="LOCAL" />
       <updated>1618227432512</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Simple pagination">
+      <created>1618263000639</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1618263000639</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -109,7 +101,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="-" />
     <MESSAGE value="Delete old files" />
-    <option name="LAST_COMMIT_MESSAGE" value="Delete old files" />
+    <MESSAGE value="Simple pagination" />
+    <option name="LAST_COMMIT_MESSAGE" value="Simple pagination" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
