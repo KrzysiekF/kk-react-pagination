@@ -1,4 +1,8 @@
+sudo: false
+dist: trusty
+
 language: node_js
+
 node_js:
   - 10
   - 12
@@ -13,5 +17,7 @@ jobs:
       script: echo "Deploying to npm ..."
       deploy:
         provider: npm
+        email: "krzysztof.furtak@gmail.com"
         api_key: $NPM_TOKEN
+        gem: travis-kk-react-pagination
         on: deploy-npm-release
