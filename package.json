@@ -67,7 +67,8 @@
     "build-storybook": "build-storybook",
     "lint": "eslint './src/**/*.{js,jsx,ts,tsx}'",
     "lint:fix": "eslint --fix './src/**/*.{js,jsx,ts,tsx}'",
-    "release": "semantic-release"
+    "release": "semantic-release",
+    "semantic-release": "semantic-release"
   },
   "eslintConfig": {
     "extends": [
