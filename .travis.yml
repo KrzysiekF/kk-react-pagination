@@ -1,22 +1,17 @@
-sudo: false
-
 language: node_js
 node_js:
   - 10
   - 12
   - 14
 
-cache:
-  directories:
-    - node_modules
+script: echo "Running tests against $(node -v) ..."
 
-before_install:
-  - npm install codecov.io coveralls
-
-after_success:
-  - cat ./coverage/lcov.info | ./node_modules/codecov.io/bin/codecov.io.js
-  - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
-
-branches:
-  only:
-    - master
+jobs:
+  include:
+    - stage: npm release
+      node_js: "14"
+      script: echo "Deploying to npm ..."
+      deploy:
+        provider: npm
+        api_key: $NPM_TOKEN
+        on: deploy-npm-release
