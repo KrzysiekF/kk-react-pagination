@@ -53,7 +53,7 @@
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-react": "^7.23.2",
     "prettier": "^2.2.1",
-    "semantic-release": "^17.4.2",
+    "semantic-release": "^19.0.3",
     "storybook-readme": "^5.0.9"
   },
   "scripts": {
